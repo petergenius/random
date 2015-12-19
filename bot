@@ -1,0 +1,4 @@
+#!/usr/bin/env python3
+import skilstak.colors as c
+for count in range(50001):
+  print(c.rc() + "YOU HAVE GOTTEN A SKILBUX WITH A ROBOT")

@@ -1,0 +1,19 @@
+#!/usr/bin/env python3
+import skilstak.colors as c
+if __name__ == "__main__":
+    try:
+        print(c.clear + c.rc() + "type start" + c.x)
+        a = 1
+        b = 1
+        answer = input("  >")
+        if answer == "start":
+            print(c.clear + "sequence")
+            for c in range(1, 31):
+                print(a)
+                d = a + b
+                a = b
+                b = d
+        else:
+            exit()
+    except KeyboardInterrupt:
+        exit()

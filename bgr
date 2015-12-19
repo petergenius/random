@@ -1,0 +1,49 @@
+#!/usr/bin/env python3
+import skilstak.colors as c
+import random as r
+import time
+def neg():
+    print(c.green + "Not trying to brag, but my number is 0.So, Mine is bigger. Ha!")
+    time.sleep(3)
+def xit():
+    print(c.clear)
+    exit()
+
+def prompt():
+    print(c.clear + c.rc() + "I can name a number larger than you input. Please only type a number.")
+    answer = input(">>> ")
+    answer = answer.strip()
+    return answer
+
+def infinite():
+    print(c.blue + "technically, it is not a number, it's a symbol that represents the largest value possible")
+    print(c.blue + "....And....if it was a number, I would invent a number called 'moreinfinity' which is slightly bigger than infinity (by 1 to be exact).Ha!")
+    time.sleep(10)
+
+def how(answer):
+    x = int(answer)
+    out = int()
+    out = x+1
+    print(c.rc() + 'Not trying to brag, but my number is... ',out,'.So, Mine is Bigger. Ha!')
+    time.sleep(3)
+
+def error():
+    print(c.rc() + "NUMBERZ ONLI")
+    time.sleep(2)
+if __name__ == "__main__":
+    try:
+        while True:
+            answer = prompt()
+            if "negative" in answer or "-" in answer:
+                neg()
+            elif "infinity" in answer:
+                infinite()
+            elif "exit" in answer or "escape" in answer:
+                xit()
+            else:
+                try:
+                    how(answer)
+                except ValueError:
+                    error()
+    except KeyboardInterrupt:
+        exit()

@@ -1,0 +1,5 @@
+#!/usr/bin/env python3
+if __name__ == "__main__":
+  from os import system
+  input("> ")
+  system('python -m webbrowser -t "https://www.google.com/search?q=google+calculator&oq=googl&aqs=chrome.2.69i60l2j69i59j69i60l2j69i59.2313j0j7&sourceid=chrome&es_sm=91&ie=UTF-8"')
