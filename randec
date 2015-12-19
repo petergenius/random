@@ -1,0 +1,12 @@
+#!/usr/bin/env python3
+import random as r
+print("Integer or Decimal Random Number?")
+op = input("i or d ? >>> ")
+if op == "d":
+    lo = float(input("Lowest # >> "))
+    hi = float(input("Highest # >> "))
+    print(r.uniform(lo,hi))
+if op == "i":
+    lo = int(input("Lowest # >> "))
+    hi = int(input("Highest # >> "))
+    print(r.randrange(lo,hi))
