@@ -9,6 +9,6 @@ if __name__ == '__main__':
             z = str(y)
             print(c.multi(z))
             x = y
-            t.sleep(0.125)
+            t.sleep(1)
     except KeyboardInterrupt:
         exit()
