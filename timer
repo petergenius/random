@@ -5,10 +5,12 @@ if __name__ == '__main__':
     try:
         x = 0
         while True:
-            y = int(x + 1)
-            z = str(y)
+            y = float(x + .1)
+            w = round(y,1)
+            z = str(w)
             print(c.multi(z))
             x = y
-            t.sleep(1)
+            t.sleep(.1)
     except KeyboardInterrupt:
+        print(c.rc() + "Your time is "+ z + " seconds." + c.x)
         exit()
