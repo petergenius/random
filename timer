@@ -4,13 +4,13 @@ if __name__ == '__main__':
     import time as t
     try:
         x = 0
+        print("control + c to stop - times in accuracy of 0.01")
         while True:
-            y = float(x + .1)
-            w = round(y,1)
+            y = float(x + .01)
+            w = round(y,2)
             z = str(w)
-            print(c.multi(z))
             x = y
-            t.sleep(.1)
+            t.sleep(.01)
     except KeyboardInterrupt:
         print(c.rc() + "Your time is "+ z + " seconds." + c.x)
         exit()
