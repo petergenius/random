@@ -26,4 +26,5 @@ def main():
 
 
 if __name__ == "__main__":
+    """the program is getting data from a .json file, reading it, adding one to the number in it, and writing the new integer to the .json file"""
     main()
