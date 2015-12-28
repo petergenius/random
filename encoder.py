@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 #a list of the letters to encrypt
-alphabet = "lbuk26cq3igrh9fsmnjevtw57d8x40zypoa1"
 
+alphabet = "aJs`1*/C$RIm!HwMdt~&9'b#)]D;i:['KhP?VLvT6GqB8Njpu(ey%3}oQA.FW>l>xX-@U0<_^=|z5r2Z{OkYf+4{n7gS=E,"
 #get the message from the user
-message = input("Please enter a message to encrypt: ").lower()
+message = input("Please enter a message to encrypt: ")
 
 #this variable will store the encrypted message
 encryptedMessage = ""
@@ -24,7 +24,7 @@ for char in message:
 
         #add the secret key to find the encrypted character position
         # % 26 means 'go back to 0 once you get to 26'
-        newPosition = (position + key) % 36
+        newPosition = (position + key) % 95
 
         #add the encrypted letter to the message
         #the encrypted letter is in the alphabet at newPosition

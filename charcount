@@ -1,0 +1,6 @@
+#!/usr/bin/env python3
+x = input("> ")
+z = 0
+for char in x:
+  z = z + 1
+print(z)
