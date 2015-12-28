@@ -1,0 +1,12 @@
+#!/usr/bin/env python3
+if __name__ == '__main__':
+    a = input("e = encode d = decode > ")
+    if a == 'd':
+        import decoder
+        decoder
+    if a == 'e':
+        import encoder
+        encoder
+    else:
+        print("aww")
+
