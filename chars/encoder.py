@@ -8,8 +8,7 @@ encryptedMessage = ""
 
 #get the secret key
 key1 = int(input("first key: "))
-key2 = int(input("2nd key (95): "))
-key3 = int(input("3rd key: "))
+key3 = int(input("2nd key: "))
 #This action is needed as if not the program wont take key as a number
 key = int (key1)
 if key3 == 0:
@@ -31,7 +30,7 @@ for char in message:
 
         #add the secret key to find the encrypted character position
         # % 26 means 'go back to 0 once you get to 26'
-        newPosition = (position + key) % key2 # 95
+        newPosition = (position + key) % 95 # 95
 
         #add the encrypted letter to the message
         #the encrypted letter is in the alphabet at newPosition
