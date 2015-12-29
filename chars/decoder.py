@@ -10,16 +10,16 @@ encryptedMessage = ""
 
 #get the secret key
 key1 = input("first key: ")
-key2 = int(input("2nd key (94): "))
+key2 = int(input("2nd key (95): "))
 key3 = int(input("3rd key: "))
 #This action is needed as if not the program wont take key as a number
 key = int(key1)
 if key3 == 0:
-    alphabet = "_Zn0=F(:2,vV]Tb.e;h|}l+uagJMRCE<Hj{5BO>`r#I*i9'?QApfotWU@)N31yzm>qXs-^GwDLPY=%&kK$!xS87d/~[{64"
+    alphabet = "_Zn0=F(:2,vV] Tb.e;h|}l+uagJMRCE<Hj{5BO>`r#I*i9'?QApfotWU@)N31yzm>qXs-^GwDLPY=%&kK$!xS87d/~[{64"
 elif key3 == 1:
-    alphabet = "aJs`1*/C$RIm!HwMdt~&9b#)]D;i:['KhP?VLvT6GqB8Njpu(ey%3}oQA.FW>l>xX-@U0<_^=|z5r2Z{OkYf+4{n7gS=E,"
+    alphabet = "aJs`1*/C$RIm!H wMdt~&9b#)]D;i:['KhP?VLvT6GqB8Njpu(ey%3}oQA.FW>l>xX-@U0<_^=|z5r2Z{OkYf+4{n7gS=E,"
 elif key3 == 2:
-    alphabet = "}-zFN8;hV{=)yq{5XlDjd*(JvU=/Hk3r$'Kp:BQxoL|R~+S6Y>2bw?O7Gt]04T.n1!se,uW^EC&#_PM9ZfI%A>g<[m@ai`"
+    alphabet = "}-zFN8;hV{=)yq{ 5XlDjd*(JvU=/Hk3r$'Kp:BQxoL|R~+S6Y>2bw?O7Gt]04T.n1!se,uW^EC&#_PM9ZfI%A>g<[m@ai`"
 else:
     print("invalid key")
 #loop through each character in the message
