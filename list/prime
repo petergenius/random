@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 import math
+import skilstak.colors as c
 if __name__ == '__main__':
     try:
-        option = input("o = fast calc; n = normal")
+        option = input(c.clear + "o = fast calc; n = normal >>> ")
         if option == "o":
             i = int(input("what odd # to start at? > ")) 
             while True:
