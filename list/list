@@ -1,0 +1,10 @@
+#!/usr/bin/env python3
+if __name__ == '__main__':
+  x = input("add to the list > ")
+  list = ["a",2,4,15,"Q",7]
+  list.append(x)
+  print(len(list))
+  print(list)
+  z = input("what do you want to add > ")
+  y = input("where -1? > ")
+  list.insert(y, z)
