@@ -1,5 +1,75 @@
 #!/usr/bin/env python3
-str = input("decoder > ")
-key = {'B':'a','C':'a','D':'a'}
+str = input("decode > ")
+a_ = int(input("Enter numbers 1-26, use each number once. 1st > "))
+b_ = int(input(" > "))
+c_ = int(input(" > "))
+d_ = int(input(" > "))
+e_ = int(input(" > "))
+f_ = int(input(" > "))
+g_ = int(input(" > "))
+h_ = int(input(" > "))
+i_ = int(input(" > "))
+j_ = int(input(" > "))
+k_ = int(input(" > "))
+l_ = int(input(" > "))
+m_ = int(input(" > "))
+n_ = int(input(" > "))
+o_ = int(input(" > "))
+p_ = int(input(" > "))
+q_ = int(input(" > "))
+r_ = int(input(" > "))
+s_ = int(input(" > "))
+t_ = int(input(" > "))
+u_ = int(input(" > "))
+v_ = int(input(" > "))
+w_ = int(input(" > "))
+x_ = int(input(" > "))
+y_ = int(input(" > "))
+z_ = int(input(" > "))
+alphabet = "-abcdefghijklmnopqrstuvwxyz"
+a = alphabet[a_]
+b = alphabet[b_]
+c = alphabet[c_]
+d = alphabet[d_]
+e = alphabet[e_]
+f = alphabet[f_]
+g = alphabet[g_]
+h = alphabet[h_]
+i = alphabet[i_]
+j = alphabet[j_]
+k = alphabet[k_]
+l = alphabet[l_]
+m = alphabet[m_]
+n = alphabet[n_]
+o = alphabet[o_]
+p = alphabet[p_]
+q = alphabet[q_]
+r = alphabet[r_]
+s = alphabet[s_]
+t = alphabet[t_]
+u = alphabet[u_]
+v = alphabet[v_]
+w = alphabet[w_]
+x = alphabet[x_]
+y = alphabet[y_]
+z = alphabet[z_]
+#Make a key that defines the 3 'letters' then a
+#colon, and the letter that they represent.
+#the letter a would be:
+key = {'a':a,'J':a,'s':a,'`':b,'1':b,'*':b,
+'/':c,'C':c,'$':c,'R':d,'I':d,'m':d,
+'!':e,'H':e,' ':e,'M':f,'d':f,'t':f,
+'~':g,'&':g,'9':g,'b':h,'#':h,')':h,
+']':i,'D':i,';':i,'i':j,':':j,'[':j,
+'K':k,'h':k,'P':k,'?':l,'V':l,'L':l,
+'v':m,'T':m,'6':m,'G':n,'q':n,'b':n,
+'8':o,'N':o,'j':o,'p':p,'u':p,'(':p
+'e':q, 'y':q, '%':q,'}':r, 'o':r, 'Q':r
+'A':s, '.':s, 'F':s,'W':t, '>':t, 'l':t
+'x':u, '=':u, 'z':u,'X':v, '-':v, '@':v
+'U':w, '0':w, '<':w,'_':x, '^':x, '|':x
+'5':y,'r':y,'2':y,'Z':z, '{':z, 'O':z
+'k':' ', 'Y':' ', 'f':' ','+':' ','4':' ','{':' ','n':' ','7':' ','g':' ','S':' ','E':' ',',':' '
+}
 newstr = ''.join(key[s] if s in key else s for s in str)
 print(newstr)
