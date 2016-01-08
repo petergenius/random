@@ -2,4 +2,4 @@
 import random
 s = input()
 x = ''.join(random.sample(s,len(s)))
-print("SHUFFLED" + x)
+print("SHUFFLED:" + x)

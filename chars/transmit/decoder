@@ -1,0 +1,5 @@
+#!/usr/bin/env python3
+str = input("decoder > ")
+key = {'B':'a','C':'a','D':'a'}
+newstr = ''.join(key[s] if s in key else s for s in str)
+print(newstr)

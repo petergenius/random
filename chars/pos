@@ -1,0 +1,6 @@
+#!/usr/bin/env python3
+position = int(input("# > "))
+alphabet = "-abcdefghijklmnopqrstuvwxyz"
+print(position)
+letter = alphabet[position]
+print(letter)
