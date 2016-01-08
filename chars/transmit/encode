@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
 import itertools
 sentence = input("what is yo message > ")
-mode = input("s = shortcut mode anything otherwise > ")
-if mode == 's':
+mode = input("p = preset, a = 6 # combo, b = 13 # combo, c = 26 # combo > ")
+if mode == 'p':
+    pre = input("a = 1-26, z = 26-1: b = 1,26,2,25...: c = 26,1,25,2...: e = 2,4,6...1,3,5: o = 1,3,5...2,4,6")
+    if pre == "a":
     a_ = 1
     b_ = 2
     c_ = 3
@@ -29,7 +31,7 @@ if mode == 's':
     x_=24
     y_=25
     z_=26
-else:
+if mode == "c":
     a_ = int(input("Enter numbers 1-26, use each number once. 1st > "))
     b_ = int(input(" > "))
     c_ = int(input(" > "))
@@ -83,9 +85,6 @@ w = alphabet[w_]
 x = alphabet[x_]
 y = alphabet[y_]
 z = alphabet[z_]
-#for count in # of a's:
-#replace letter from list with letter
-#add one to pos of x
 encode_data = {
     #aJs`1*/C$RIm!H wMdt~&9b#)]D;i:[KhP?VLvT6GqB8Njpu(ey%3}oQA.FW>lx=zX-@U0<_^|5r2Z{OkYf+4{n7gSE,"
     a: itertools.cycle(['a', 'J', 's']),
