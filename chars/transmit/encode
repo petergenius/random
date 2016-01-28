@@ -3,7 +3,7 @@ import itertools
 sentence = input("what is the message to encrypt  > ")
 mode = input("p = preset, a = easy, b = medium, c = hard > ")
 if mode == 'p':
-    pre = input("a = 1-26, z = 26-1")
+    pre = input("a = 1-26, z = 26-1 > ")
     if pre == "z":
         a_ = 26
         b_ = 25
@@ -60,8 +60,7 @@ if mode == 'p':
         y_=25
         z_=26
 elif mode == "a":
-    a_ = int(input("Enter numbers 1-6, use each number once. Put each number\n
-        on one line. 1st > "))
+    a_ = int(input("Enter numbers 1-6, use each number once. Put each number\n on one line. 1st > "))
     b_ = int(a_ + 1)
     c_ = int(a_ + 2)
     d_ = int(a_ + 3)
@@ -88,8 +87,7 @@ elif mode == "a":
     y_ = int(w_ + 2)
     z_ = int(w_ + 3)
 elif mode == "b":
-    a_ = int(input("Enter numbers 1-13, use each number once. Put one number\n
-        on each line. 1st > "))
+    a_ = int(input("Enter numbers 1-13, use each number once. Put one number\n on each line. 1st > "))
     b_ = int(a_ + 1)
     c_ = int(input('> '))
     d_ = int(c_ + 1)
@@ -116,8 +114,7 @@ elif mode == "b":
     y_ = int(input('> '))
     z_ = int(y_ + 1)
 elif mode == "c":
-    a_ = int(input("Enter numbers 1-26, use each number once. \n
-        Put one number on each line. 1st > "))
+    a_ = int(input("Enter numbers 1-26, use each number once. \nPut one number on each line. 1st > "))
     b_ = int(input(" > "))
     c_ = int(input(" > "))
     d_ = int(input(" > "))
