@@ -15,7 +15,7 @@ def bye():
 
 while True:
     A = ask("> ")
-    plip = random.choice(answers)
+    choice = random.choice(answers)
     if A == "what is the meaning of life?":
         print('42')
     elif "death" in A:
@@ -36,7 +36,7 @@ while True:
     elif "marry" in A:
         print('uhhhhhhhhhhhhhhhhhhhhhhhhhhh')
     else:
-        print(plip)
+        print(choice)
 
 
 

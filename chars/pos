@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-position = int(input("# > "))
+position = int(input("Letter at what position > "))
 alphabet = "-abcdefghijklmnopqrstuvwxyz"
 print(position)
 letter = alphabet[position]

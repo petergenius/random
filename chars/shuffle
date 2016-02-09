@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
 import random
-s = input()
-x = ''.join(random.sample(s,len(s)))
-print("SHUFFLED:" + x)
+word = input("What to shuffle? > ")
+x = ''.join(random.sample(word,len(word)))
+print("SHUFFLED:\n" + x)
