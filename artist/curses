@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import curses
-import curses.panel
-
+def exit():
+    curses.endwin()
 x = 3
 y = 3
 stdscr = curses.initscr()
