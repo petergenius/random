@@ -1,0 +1,51 @@
+#!/usr/bin/env python3
+
+import skilstak.colors as c
+from random import randint
+from time import sleep
+
+# global to set delay between sequence numbers displayed
+delay = 0.01
+
+# global to remember the sequence as it grows
+sequence = []
+
+# global to contain the numbers and colors
+display = {
+    1 : c.green + "1" + c.x,
+    2 : c.red + "2" + c.x,
+    3 : c.blue + "3" + c.x,
+    4 : c.yellow + "4" + c.x,
+}
+
+def pick():
+    return randint(1,4) 
+
+def pick_colored():
+    global display
+    return display[pick()]
+
+def welcome():
+    print(c.clear + c.b0 + "Welcome to the Simon game!" + c.x)
+    print(" (Press Enter to Begin) ", end="")
+    input()
+
+def add_to_sequence():
+    global sequence
+    sequence.append(pick())
+
+def display_sequence():
+    global sequence
+    global display
+    global delay
+    for num in sequence:
+        print(display[num], end=" ", flush=True)
+        sleep(delay)
+    print()
+
+if __name__ == '__main__':
+    welcome()
+    while True:
+        add_to_sequence()
+        display_sequence()
+

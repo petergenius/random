@@ -1,0 +1,12 @@
+#!/usr/bin/env python3
+if __name__ == '__main__':
+    site = input("website > ")
+    date = input("date > ")
+    like = input("like / did not like > ")
+    adj = input("1 adj to describe it > ")
+    adj2 = input("another adjective to describe it > ")
+    teach = input("what did it teach you? > ")
+    fav = input("what game did you play? > ")
+    adj3 = input("description of the game > ")
+    rec = input("would / would not (reccomend) > ")
+    why = input("why reccomend / not > ") 

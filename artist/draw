@@ -2,7 +2,7 @@
 import curses
 import time
 
-def exit():
+def exitWin():
     curses.endwin()
 
 class Brush():
@@ -46,22 +46,26 @@ class Artist():
         stdscr.refresh()
 
 if __name__ == '__main__':
-    you = Artist()
-    while True:
-        direction = input("u, d, l, r > ")
-        if direction == 'd':
-            you.move('d',5)
-            time.sleep(0.5)
-        elif direction == 'r':
-            you.move('r',5)
-            time.sleep(0.5)
-        elif direction == 'u':
-            you.move('u',5)
-            time.sleep(0.5)
-        elif direction == 'l':
-            you.move('l',5)
-            time.sleep(0.5)
-        else:
-            time.sleep(1)
-            exit()
-
+    try:
+        you = Artist()
+        while True:
+            direction = input("u, d, l, r > ")
+            if direction == 'd':
+                you.move('d',5)
+                time.sleep(0.5)
+            elif direction == 'r':
+                you.move('r',5)
+                time.sleep(0.5)
+            elif direction == 'u':
+                you.move('u',5)
+                time.sleep(0.5)
+            elif direction == 'l':
+                you.move('l',5)
+                time.sleep(0.5)
+            else:
+                time.sleep(1)
+                exitWin()
+    except Exception:
+        exitWin()
+        print(Exception)
+        exit()
