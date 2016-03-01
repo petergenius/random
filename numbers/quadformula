@@ -2,7 +2,7 @@
 import skilstak.colors as sc
 def pad():
     print("")
-if __name__ == '__main__':
+def solve():
     a = float(input("a > "))
     b = float(input("b > "))
     c = float(input("c > "))
@@ -44,3 +44,5 @@ if __name__ == '__main__':
         print(sc.green + "solutions:{",answer1,",",answer2,"}" + sc.yellow)
         print(top1,"/",a2,"|||",top2,"/",a2, sc.x)
 
+if __name__ == '__main__':
+    solve()
