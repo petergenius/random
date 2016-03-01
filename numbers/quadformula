@@ -1,0 +1,46 @@
+#!/usr/bin/env python3
+import skilstak.colors as sc
+def pad():
+    print("")
+if __name__ == '__main__':
+    a = float(input("a > "))
+    b = float(input("b > "))
+    c = float(input("c > "))
+    print("discrim = b² - 4ac")
+    print("discrim = ",b,"² - (4 * ",a,"*",c,")")
+    b2 = b * b 
+    ac4 = a * c * 4
+    discrim = b2 - ac4
+    print("discrim = ",discrim)
+    solve = True
+    if discrim > 0:
+        print("positive, 2 solutions")
+    elif discrim < 0:
+        solve = False
+        print("negative, no solutions")
+    else:
+        print("0, 1 solution")
+    if solve == True:
+        pad()
+        print("QUAD = -b ± √ ̅(b² - 4ac)")
+        print("       ―――――――――――――――― ")
+        print("           2a           ")
+        pad()
+        print("QUAD = -{}± √ ̅({}² - (4 * {} * {}))".format(b,b,a,c))
+        print("        ______________ ")
+        print("             2 * ",a)
+        sqd = discrim ** 0.5
+        negb = b * -1
+        top1 = negb + sqd
+        top2 = negb - sqd
+        a2 = 2 * a
+        answer1 = top1 / a2
+        answer2 = top2 / a2
+        pad()
+        print(negb,"+ √ ̅",discrim,"|||",negb,"- √ ̅",discrim)
+        print("_________   ||| ____________")
+        print(a2,"         |||",a2)
+        pad()
+        print(sc.green + "solutions:{",answer1,",",answer2,"}" + sc.yellow)
+        print(top1,"/",a2,"|||",top2,"/",a2, sc.x)
+
