@@ -1,0 +1,99 @@
+#!/usr/bin/env python3
+import skilstak.colors as c
+import random
+import time
+
+grid = [
+    [" "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "],
+    [" "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "],
+    [" "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "],
+    [" "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "],
+    [" "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "],
+    [" "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "],
+    [" "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "],
+    [" "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "],
+    [" "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "],
+    [" "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "],
+    [" "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "],
+    [" "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "],
+    [" "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "],
+    [" "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "],
+    [" "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "],
+    [" "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "],
+    [" "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "],
+    [" "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "],
+    [" "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "],
+    [" "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "]
+]
+
+num_range = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19]
+life = c.green + "X" + c.reset
+
+def show(grid):
+    for i in grid:
+        print (" ".join(str(item) for item in i))
+
+def check_life(numx, numy):
+    try:
+        count = 0
+        if grid[numx - 1][numy] == life: #Left
+            count += 1
+        if grid[numx + 1][numy] == life: #Right
+            count += 1
+        if grid[numx][numy + 1] == life: #Up
+            count += 1
+        if grid[numx][numy - 1] == life: #Down
+            count += 1
+        if grid[numx - 1][numy - 1] == life: #Down-Left
+            count += 1
+        if grid[numx + 1][numy + 1] == life: #Down-Right
+            count += 1
+        if grid[numx - 1][numy + 1] == life: #Up-Left
+            count += 1
+        if grid[numx + 1][numy + 1] == life: #Up-Right
+            count += 1
+        if count >= 3:
+            grid[numx][numy] = " "
+    except IndexError:
+        pass
+            
+def check_dead(numx, numy):
+    try:
+        count = 0
+        if grid[numx - 1][numy] == " ": #Left
+            count += 1
+        if grid[numx + 1][numy] == " ": #Right
+            count += 1
+        if grid[numx][numy + 1] == " ": #Up
+            count += 1
+        if grid[numx][numy - 1] == " ": #Down
+            count += 1
+        if grid[numx - 1][numy - 1] == " ": #Down-Left
+            count += 1
+        if grid[numx + 1][numy + 1] == " ": #Down-Right
+            count += 1
+        if grid[numx - 1][numy + 1] == " ": #Up-Left
+            count += 1
+        if grid[numx + 1][numy + 1] == " ": #Up-Right
+            count += 1
+        if count >= 2:
+            grid[numx][numy] = " "
+    except IndexError:
+        pass
+try:
+    while True:
+        numx = random.choice(num_range)
+        numy = random.choice(num_range)
+
+        grid[numx][numy] = life
+
+        print(c.clear)
+        show(grid)
+
+        check_life(numx, numy)
+        #check_dead(numx, numy)
+            
+        time.sleep(1)
+        
+except(KeyboardInterrupt,EOFError):
+    exit(1)
