@@ -9,10 +9,18 @@ def play(level):
     for count in range(level):
         number = random.choice(numbers)
         print(number,'  '+alphabet[count])
-        if level <= 6:
-            time.sleep(0.5)
+        if level > 4:
+            time.sleep(0.65)
+        if level > 6:
+            time.sleep(0.8)
+        elif level > 9:
+            time.sleep(1.0)
+        elif level > 11:
+            time.sleep(1.5)
+        elif level > 14:
+            time.sleep(2.0)
         else:
-            time.sleep(0.7)
+            time.sleep(0.5)
         print(c.cl)
         checkfor += str(number)
     return checkfor
