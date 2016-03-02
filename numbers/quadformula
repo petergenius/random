@@ -38,7 +38,7 @@ def solve():
         answer2 = top2 / a2
         pad()
         print(negb,"+ √ ̅",discrim,"|||",negb,"- √ ̅",discrim)
-        print("_________   ||| ____________")
+        print("_________    ||| ____________")
         print(a2,"         |||",a2)
         pad()
         print(sc.green + "solutions:{",answer1,",",answer2,"}" + sc.yellow)
