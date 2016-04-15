@@ -43,6 +43,6 @@ def solve():
         pad()
         print(sc.green + "solutions:{",answer1,",",answer2,"}" + sc.yellow)
         print(top1,"/",a2,"|||",top2,"/",a2, sc.x)
-
+        print("square root is ", sqd)
 if __name__ == '__main__':
     solve()
