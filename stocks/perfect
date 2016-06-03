@@ -1,0 +1,11 @@
+#!/usr/bin/env python3
+trades = int(input("# of trades:"))
+y = 0
+money = 350
+commisonPerTrans = 0
+taxPercent = 0
+percent = .50 
+while y <= trades:
+    print(y , ":", money)
+    money = (1-taxPercent)*(money * (1 + percent)) - (2*commisonPerTrans)
+    y += 1
