@@ -1,20 +1,38 @@
 #!/usr/bin/env python3
 y = 0
-goals = True
+z = 0
+startmoney = 0
+endmoney = 0
+######VALUES########
+goals = 0  # 1(ON) / 0(OFF)
 goal = 1000000
-money = 350
+money = 5000
 commisonPerTrans = 6.99
-taxPercent = 0
-percent = .50
-if goals != True:
+taxPercent = .28
+tradesPerYear = 1 
+gainPercent = .07
+####################
+if goals == 0:
     trades = int(input("# of trades:"))
-    while y <= trades:
-        print(y , ":", money)
-        money = (1-taxPercent)*(money * (1 + percent)) - (2*commisonPerTrans)
+    while z <= trades:
+        startmoney = money
+        print(z , ":", round(money,2))
+        money = money * (1 + gainPercent) - (2*commisonPerTrans)
         y += 1
-else:
+        z += 1
+        if y == tradesPerYear:
+            endmoney = money
+            y = 0
+            money = ((1-taxPercent)*(endmoney-startmoney))+startmoney
+elif goals == 1:
     while money <= goal:
-        print(y , ":", money)
-        money = (1-taxPercent)*(money * (1 + percent)) - (2*commisonPerTrans)
+        startmoney = money
+        print(z , ":", round(money,2))
+        money = money * (1 + gainPercent) - (2*commisonPerTrans)
         y += 1
-    print(y, ":", money)
+        z += 1
+        if y == tradesPerYear:
+            endmoney = money
+            y = 0
+            money = ((1-taxPercent)*(endmoney-startmoney))+startmoney
+    print(z, ":", round(money,2))
