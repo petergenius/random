@@ -9,7 +9,7 @@ goal = 1000000
 money = 5000
 commisonPerTrans = 6.99
 taxPercent = .28
-tradesPerYear = 1 
+tradesPerYear = 2
 gainPercent = .07
 ####################
 if goals == 0:

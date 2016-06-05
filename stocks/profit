@@ -1,6 +1,14 @@
 #!/usr/bin/env python3
-x = 7
-y = float(input("price right now > "))
-z = 50
+PriceBoughtAt = 7
+PriceNow = float(input("price right now > "))
+Shares = 50
 #number of shares
-print(round((y-x)*z,2))
+wot = round((PriceNow-PriceBoughtAt)*Shares,2)
+wt = round(wot*0.72,2)
+wtc = round(wt - 13.98,2)
+print("before tax:",wot)
+if wot > 0:
+    print("with tax:",wt)
+    print("with tax & commision:",wtc)
+else:
+    print("with commision:",wot - 13.98)
