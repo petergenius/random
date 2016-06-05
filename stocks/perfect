@@ -4,7 +4,7 @@ z = 0
 startmoney = 0
 endmoney = 0
 ######VALUES########
-goals = 0  # 1(ON) / 0(OFF)
+goals = 1  # 1(ON) / 0(OFF)
 goal = 1000000
 money = 5000
 commisonPerTrans = 6.99
