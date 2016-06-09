@@ -1,14 +1,17 @@
 #!/usr/bin/env python3
-PriceBoughtAt = 7
+PriceBoughtAt = [7,5.83]
 PriceNow = float(input("price right now > "))
-Shares = 50
+Shares = [50,50]
+totalMade = 0
 #number of shares
-wot = round((PriceNow-PriceBoughtAt)*Shares,2)
-wt = round(wot*0.72,2)
+for pos in range(len(PriceBoughtAt)):
+    wot = round((PriceNow-PriceBoughtAt[pos])*Shares[pos],2)
+    totalMade += wot
+wt = round(totalMade*0.72,2)
 wtc = round(wt - 13.98,2)
-print("before tax:",wot)
-if wot > 0:
+print("before tax:",totalMade)
+if totalMade > 0:
     print("with tax:",wt)
     print("with tax & commision:",wtc)
 else:
-    print("with commision:",wot - 13.98)
+    print("with commision:",round(totalMade - 13.98,2))
