@@ -1,0 +1,15 @@
+#!/usr/bin/env python3
+a = 1
+b = 8
+c = 9
+aos = (-b)/(2*a)
+print('aos=',aos)
+y=(a*(aos*aos))+(b*aos)+c
+print('vertex:(',aos,',',y,')')
+print('y-int=(0,',c,')')
+if a < 0:
+    print('maximum')
+    print('(-∞,',aos,')')
+else: 
+    print('minimum')
+    print('(',aos,',∞)')

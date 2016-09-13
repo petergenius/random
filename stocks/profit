@@ -9,7 +9,7 @@ for pos in range(len(PriceBoughtAt)):
     totalMade += wot
 wt = round(totalMade*0.72,2)
 wtc = round(wt - 13.98,2)
-print("before tax:",totalMade)
+print("before tax:",round(totalMade,3))
 if totalMade > 0:
     print("with tax:",wt)
     print("with tax & commision:",wtc)

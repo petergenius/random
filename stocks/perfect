@@ -6,11 +6,11 @@ endmoney = 0
 ######VALUES########
 goals = 1  # 1(ON) / 0(OFF)
 goal = 1000000
-money = 5000
+money = 700
 commisonPerTrans = 6.99
 taxPercent = .28
-tradesPerYear = 2
-gainPercent = .07
+tradesPerYear = 10
+gainPercent = .20
 ####################
 if goals == 0:
     trades = int(input("# of trades:"))

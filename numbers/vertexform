@@ -1,0 +1,13 @@
+#!/usr/bin/env python3
+pointx = 32
+pointy = 0
+vertexx = 16
+vertexy = 384
+
+new = (pointx - vertexx) * (pointx - vertexx)
+y = pointy - vertexy
+print("y = a(x - h)^2 + k")
+print(pointy , " = a(", pointx-vertexx,")^2 + ", vertexy)
+print(y , " = a*" , new)
+print("a =", y/new)
+print('f(x) =',y/new,"(x -",vertexx,")^2 + ",vertexy)
