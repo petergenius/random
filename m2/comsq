@@ -1,0 +1,19 @@
+#!/usr/bin/env python3
+import sys
+#a + b + c = 0
+a = float(sys.argv[1])
+b = float(sys.argv[2])
+c = float(sys.argv[3])
+newb = b/a
+newc = c/a
+persq = (newb/2)**2
+negc = newc * -1
+total = negc + persq
+print("perfect square =",persq)
+print("(x +",newb/2,")^2=",total)
+sq = total ** 0.5
+negsq = sq * -1
+total1 =sq + (newb/2)
+total2 = (newb/2) - sq
+print("x=",total1,"or",total2)
+print("x=",newb/2,"±√",total)
