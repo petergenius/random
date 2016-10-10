@@ -1,0 +1,18 @@
+#!/usr/bin/env python3
+import skilstak.colors as c
+import time
+import random
+level = 0
+numbers = ['1','2','3','4']
+base = random.choice(numbers)
+stuff = ['number','integer']
+while True:
+    print('level:',level)
+    for letter in base:
+        print(letter)
+        print(time.sleep(0.25))
+        print(c.clear)
+    x = input('> ')
+    if x == base:
+        base = base + random.choice(numbers)
+
