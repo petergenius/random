@@ -1,0 +1,137 @@
+#!/usr/bin/env python3
+
+import requests
+import skilstak.colors as c
+import os
+####
+#MADE BY PETER STENGER
+#Retep-Mathwizard
+#####
+def quote(string):
+    return "'" + string + "'"
+
+
+def makeStats(pokemonnum, generation, generationnum):
+    baseurl = 'http://pokeapi.co/api/v2/'
+    try:
+        stats = requests.get(baseurl + 'pokemon/' + pokemonnum + '/').json()
+        stats2 = requests.get(stats["species"]["url"]).json() 
+        Id = stats["id"]
+        url = str(stats2["evolution_chain"]["url"])
+        stats3 = requests.get(url).json()
+    except Exception:
+        print(c.R + "hmm... there was an error accessing the website:"+baseurl + 'pokemon/' + pokemonnum + '/' + c.X)
+    
+
+    abilities = []
+    moves = []
+    types = []
+    statlinelist = []
+    evolution = "''"
+    minlevel = "''"
+    
+
+    for details in stats['moves']:
+        moves.append(details['move']['name'])
+
+    for statabout in stats["stats"]:
+        key = statabout["stat"]["name"]
+        value = statabout["base_stat"]
+        statlinelist.append(key + " = " + str(value))
+
+    for atype in stats["types"]:
+        types.append(atype["type"]["name"])
+
+    for ability in stats["abilities"]:
+        abilities.append(ability["ability"]["name"])
+
+
+    try:
+    
+        if stats3["chain"]["species"]["name"] == stats['name']:
+            if len(stats3["chain"]["evolves_to"])!= 0:
+                evolution = quote(stats3["chain"]["evolves_to"][0]["species"]["name"])
+                minlevel = stats3["chain"]["evolves_to"][0]["evolution_details"]["min_level"]
+                
+
+        elif stats3["chain"]["evolves_to"][0]["species"]["name"] == stats['name']:
+            if len(stats3["chain"]["evolves_to"][0]["evolves_to"]) != 0:
+                evolution = quote(stats3["chain"]["evolves_to"][0]["evolves_to"][0]["species"]["name"])
+                minlevel = stats3["chain"]["evolves_to"][0]["evolves_to"][0]["evolution_details"]["min_level"]
+            #######
+    except Exception:
+        print(c.R + "while reading "+c.B1 +url + c.R +" there was not suffiencent information.")
+        print("this means that evolution and evolution level will not be available." + c.X)
+        #######
+    nameline = "name = " + quote(str(stats["name"]))
+    idline = "id = " + str(Id)
+    typesline = "types = " + str(types)
+    abilityline = "abilities = " + str(abilities)
+    minlevel = "min-evolution-level = " + str(minlevel)
+    generationline = "generation = " + str(generationnum)
+    evolutionline = "evolution = " + evolution
+    captureline = "capture-rate = " + str(stats2["capture_rate"])
+    happinessline = "base-happiness = " + str(stats2["base_happiness"])
+    growthline = "growth-rate = " + quote(stats2["growth_rate"]["name"])
+    heightline = "height = " + str(stats["height"]/10)
+    weightline = "weight = " + str(stats["weight"]/10)
+    if stats2['gender_rate'] >= 0:
+        rate = str(stats2['gender_rate'] * 0.125)
+    else:
+        rate = '-1'
+        #the pokemon has no gender
+    genderline = "female-offspring-rate = " + rate
+    experienceline = "base-experience = " + str(stats["base_experience"])
+    ####
+    if not os.path.exists(os.path.dirname(generation + "/" + str(stats["name"])+"/_.toml")):
+        try:
+            os.makedirs(os.path.dirname(generation + "/" + str(stats["name"])+"/_.toml"))
+        except OSError as exc: # Guard against race condition
+            if exc.errno != errno.EEXIST:
+                raise
+    if not os.path.exists(os.path.dirname(generation + "/" + str(stats["name"])+"/moves.list")):
+        try:
+            os.makedirs(os.path.dirname(generation + "/" + str(stats["name"])+"/moves.list"))
+        except OSError as exc: # Guard against race condition
+            if exc.errno != errno.EEXIST:
+                raise
+    with open(generation + "/" + str(stats["name"])+"/_.toml", "w") as f:
+        f.write(nameline + "\n" + idline + "\n" + generationline + '\n')
+        for line in statlinelist:
+            f.write(line + "\n")
+        f.write(typesline + "\n" + abilityline+ "\n" + minlevel+ "\n" +evolutionline + "\n" + genderline + "\n")
+        f.write(captureline+ "\n" +happinessline+ "\n" +growthline+ "\n" +heightline+ "\n" +weightline + "\n" +experienceline)
+    with open(generation + "/" + str(stats["name"]) + "/moves.list","w") as f:
+        for move in moves:
+            f.write(move + "\n")
+if __name__ == '__main__':
+    #generation 1 = 1-151
+    #generation 2 = 152-251
+    #generation 3 = 252-386
+    #generation 4 = 387-493
+    #generation 5 = 494-649
+    #generation 6 = 650-721
+    for intnum in range(463,722):
+        pokemonnum = str(intnum)
+
+        #pokemonnum = input(c.G + "pokemon # > " + c.X)
+        if intnum > 649 and intnum < 722:
+            generation = "gen6"
+            generationnum = 6
+        elif intnum > 493 and intnum < 650:
+            generation = "gen5"
+            generationnum = 5
+        elif intnum > 386 and intnum < 494:
+            generation = "gen4"
+            generationnum = 4
+        elif intnum > 251 and intnum < 387:
+            generation = "gen3"
+            generationnum = 3
+        elif intnum > 151 and intnum < 252:
+            generation = "gen2"
+            generationnum = 2
+        elif intnum > 0 and intnum < 152:
+            generation = "gen1"
+            generationnum = 1
+        makeStats(pokemonnum, generation, generationnum)
+        print("success! Finshed creating pokemon ID#",intnum)
