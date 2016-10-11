@@ -1,16 +1,16 @@
 #!/usr/bin/env python3
 import colors as c
 import time
-x = list(input('word > '))
+x = list(input(c.cl +'word > '))
 time.sleep(1)
 print(c.cl)
 z = ['_'] * len(x)
+for letter in range(len(x)):
+    if x[letter] ==" ":
+        z[letter] = " | "
 guesses = 6
 letters = []
-if ' ' in x:
-    print('No spaces please.')
-    exit()
-print(z)
+print(' '.join(z))
 while guesses > 0 and '_' in z:
     y = input('letter > ')
     if y not in letters:
