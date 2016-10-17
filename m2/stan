@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+'''finds everything about an equation from standard form'''
 import sys
 
 a =float(sys.argv[1])
