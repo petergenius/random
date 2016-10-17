@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+'''finds vertex form equation from vertex and other point'''
 pointx = 32
 pointy = 0
 vertexx = 16
