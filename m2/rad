@@ -1,12 +1,19 @@
 #!/usr/bin/env python3
 import sys
+printI = False
 radical = int(sys.argv[1])
+if radical < 0:
+    radical *= -1
+    printI = True
 persq = [4,9,16,25,36,49,64,81,100,121,144,169,196,225,256,289,324,361,400]
 for num in persq[::-1]:
     if radical == num:
         print(radical ** 0.5)
         break
     if radical % num == 0:
-        print(num ** 0.5,"√",radical/num)
+        if printI:
+            print(num ** 0.5,"i√",radical/num)
+        else:
+            print(num ** 0.5,"√",radical/num)
         break
 
