@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+'''solves system of quadratics'''
 print('input a, b and c seperated by spaces')
 rawx = input('> ')
 x = rawx.split(" ")
