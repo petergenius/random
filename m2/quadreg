@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+'''finds the eqaution based on 3 points - quadratic regression'''
 import sys
 def printmainfunc(word,a,b,y):
     print(word + ":", y,"=",a,"x^2+",b,"x + c")
