@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+'''standard to vertex'''
 a = 1
 b = -2
 c =-6
