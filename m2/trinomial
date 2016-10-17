@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+'''old: tries to solve trinomial by factoring, ineffiencent, tries every combo'''
 import math
 import skilstak.colors as color
 print("Welcome to Peter's trinomial factoring calculator!")
