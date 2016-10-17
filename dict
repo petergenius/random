@@ -6,9 +6,7 @@ def use(x):
     multiplyVar = addOne * subtractOne
     return {'add':addOne, 'subtract':subtractOne,'square':square,'var':multiplyVar}
 def find(toCall,function):
-    quote = "'"
-    addQ = quote + toCall + quote
-    toPrint = function[addQ]
+    toPrint = function[str(addQ)]
     print(toPrint)
 if __name__ == '__main__':
     x = 5

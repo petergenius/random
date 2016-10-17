@@ -10,6 +10,57 @@ for letter in range(len(x)):
         z[letter] = " | "
 guesses = 6
 letters = []
+asciiart = ['''    
+      _________
+    |         |
+    |         0
+    |        /|\
+    |        / \
+    |
+    |-----------''','''
+      _________
+    |         |
+    |         0
+    |        /|\
+    |        /
+    |
+    |-----------''','''
+      _________
+    |         |
+    |         0
+    |        /|\
+    |         
+    |
+    |----------''','''
+      _________
+    |         |
+    |         0
+    |        /|
+    |         
+    |
+    |-----------''','''
+     _________
+    |         |
+    |         0
+    |         |
+    |        
+    |
+    |------------''','''
+     _________
+    |         |
+    |         0
+    |        
+    |        
+    |
+    |__________''','''
+        _________
+    |         |
+    |        
+    |        
+    |        
+    |
+    |__________
+    ''']
 print(' '.join(z))
 while guesses > 0 and '_' in z:
     y = input('letter > ')
@@ -23,7 +74,9 @@ while guesses > 0 and '_' in z:
         else:
         
             guesses -= 1
-            print('You have',guesses,'guesses.')
+            print('You have',guesses,'guesses.')\
+
+            print(asciiart[guesses])
     else:
         print('already guessed that letter.')
 if '_' in z:
