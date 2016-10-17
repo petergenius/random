@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+'''solves a quadratic by completing the square'''
 import sys
 #a + b + c = 0
 a = float(sys.argv[1])
