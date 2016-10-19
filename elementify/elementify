@@ -1,14 +1,24 @@
 #!/usr/bin/env python3
+import sys
+import math
+import itertools
 
-def f_iter(n):
-    assert n >= 0
+def findCombos(n):
+    max2s = math.floor(n/2)
+    min1s = n - max2s
+    sets = []
+    for x in range(max2s+1):
+        sets.append([x,n-(x*2)])
+  
+    numsets = []
 
-    a, b = [], [[1]]
+    for x in sets:
+        numsets.append(x[0] * [2] + x[1] * [1])
+    for eachset in numsets:
+        #print(eachset)
+        if 1 in eachset and 2 in eachset:
 
-    for _ in range(n):
-        a, b = b, [[1] + c for c in b] + [[2] + c for c in a]
-
-    return a
+    return numsets
 def changeToLetters(word,combos):
     sets = []
     for numset in combos:
@@ -24,11 +34,11 @@ def changeToLetters(word,combos):
                     letterNum += 2
         sets.append(myset)
     return sets
-
-word = "bacon"
+word = sys.argv[1]
 elements = ["h","he","li","be","b","c","n","o","f","ne","na","mg","al","si","p","s","cl","ar","k","ca","sc","ti","v","cr","mn","fe","co","ni","cu","zn","ga","ge","as","se","br","kr","rb","sr","y","zr","nb","mo","tc","ru","rh","pd","ag","cd","in","sn","sb","te","i","xe","cs","ba","la","ce","pr","nd","pm","sm","eu","gd","tb","dy","ho","er","tm","yb","lu","hf","ta","w","re","os","ir","pt","au","hg","tl","pb","bi","po","at","rn","fr","ra","ac","th","pa","u","np","pu","am","cm","bk","cf","es","fm","md","no","lr","rf","db","sg","bh","hs","mt","ds","rg","cn","fl","lv"]
-combos = f_iter(len(word))
+combos = findCombos(len(word))
 sets = changeToLetters(word,combos)
+print(combos)
 for eachSet in sets:
 	if set(eachSet).issubset(set(elements)):
 		print(eachSet)
