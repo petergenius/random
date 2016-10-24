@@ -20,7 +20,7 @@ def findCombos(n):
             for z in y:
                 allsets.append(z)
         else:
-            allsets.append(eachset)
+            allsets.append(tuple(eachset))
     return allsets
 def changeToLetters(word,combos):
     sets = []
