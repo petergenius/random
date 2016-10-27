@@ -1,0 +1,51 @@
+#!/usr/bin/env python3
+try:
+    a = input("Informal grades (seperate by commas): > ")
+    b = input("Formal grades (seperate by commas): > ")
+    while True:
+        print('f = formal, i = informal, o = change, n = new')
+        print('example: f n 90')
+        print('example 2: i o 80 100')
+        print('OLD GRADE GOES 1ST')
+
+        c = input("> ")
+        al = a.split(',')
+        bl = b.split(',')
+        alist = [float(i) for i in al]
+        blist = [float(i) for i in bl]
+        aavg = sum(alist ) / len(alist)
+        bavg = sum(blist ) / len(blist)
+        current = (aavg * .35) + (bavg * .65)
+        grades = []
+        for t in c.split():
+            try:
+                grades.append(float(t))
+            except ValueError:
+                pass
+        if "f" in c:
+            formal = True 
+        else:
+            formal = False
+        if "o" in c:
+            old = grades[0]
+            new = grades[1]
+            if formal:
+                blist.remove(old)
+                blist.append(new)
+            else:
+                alist.remove(old)
+                alist.append(new)
+        else:
+            if formal:
+                for grade in grades:
+                    blist.append(grade)
+            else:
+                for grade in grades:
+                    alist.append(grades[0])
+        anew = sum(alist ) / len(alist)
+        bnew = sum(blist ) / len(blist)
+        newgrade = (anew * .35) + (bnew * .65)
+        print("current:",current)
+        print("new:",newgrade)
+except KeyboardInterrupt:
+    exit()
