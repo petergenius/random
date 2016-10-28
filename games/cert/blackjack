@@ -26,7 +26,7 @@ if __name__ == '__main__':
         print(c.cl)
         for stage in range(rounds-1):
             first_time, hands, totals, aces = get_round_values(players)
-            print('{}Round{}{}'.format(c.x, c.b, stage+1))
+            print('{}Round {}{}'.format(c.x, c.b, stage+1))
             start = input('{}Press{} enter{} to start the round, otherwise type anything.\n'.format(c.x,c.m,c.x))
             if len(start) != 0:
                 exit()
@@ -39,7 +39,7 @@ if __name__ == '__main__':
                 print_hand(title1,title2,totals[z])
                 while True:
                     wants_to_hit = ask_to_hit(hands[z], first_time)
-                    if wantsToHit == True:
+                    if wants_to_hit == True:
                         first_time[z] = False
                         totals[z], deck, title = get_one_more_card(deck,totals[z])
                         if 'ace' in title:
@@ -55,7 +55,7 @@ if __name__ == '__main__':
                             else:
                                 totals[z] -= 10
                                 print(c.x + 'You went over, so your ace valued 11 was changed into a 1.')
-                                print('You now have points.'.format(c.b,totals[z],c.x))
+                                print('You now have {}{}{} points.'.format(c.b,totals[z],c.x))
                     else:
                         pass_to_next(players)
                         break

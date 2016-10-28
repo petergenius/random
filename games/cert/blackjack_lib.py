@@ -5,23 +5,21 @@ from time import sleep
 def create_cards():
     suits = ['diamonds', 'clubs', 'hearts', 'spades']
     values = [['ace', 11], ['jack', 10], ['queen', 10], ['king', 10], ['2', 2], ['3', 3], ['4', 4], ['5', 5], ['6', 6], ['7', 7], ['8', 8], ['9', 9], ['10', 10]]
-    standardDeck = []
-    for cardList in values:
+    standard_deck = []
+    for card_list in values:
         for suit in suits:
-            word = cardList[0] + " of " + suit
-            value = cardList[1]
+            word = card_list[0] + " of " + suit
+            value = card_list[1]
             minilist = [word, value]
-            standardDeck.append(minilist)
-    return standardDeck
+            standard_deck.append(minilist)
+    return standard_deck
 
 
 def print_rules():
-    print('''
-{}Objective{}:Get as close to 21 points without going over.
+    print('''{}Objective{}:Get as close to 21 points without going over.
 {}How to win{}:Be the closest to 21 points. If you go over, you lose.
 {}Point values{}:All cards are worth the value on the card, and face cards are worth 10.
-{}Aces{}:Aces can be used as 1 or 11 points.
-'''.format(c.y, c.x, c.y, c.x, c.y, c.x, c.y, c.x))
+{}Aces{}:Aces can be used as 1 or 11 points.'''.format(c.y, c.x, c.y, c.x, c.y, c.x, c.y, c.x))
     input('Press enter to continue.\n')
 
 
@@ -33,38 +31,38 @@ def knows_how_to_play():
             answered = True
         elif 'n' in answer:
             answered = True
-            printrules()
+            print_rules()
         else:
             print('{}Invalid. Please say {}yes{} or {}no{}.'.format(c.x, c.g, c.x, c.r, c.x))
 
 
-def isAce(card):
+def is_ace(card):
     if 'ace' in card:
         return True
     return False
 
 
-def hasAce(aces):
-    hasAce = False
+def has_ace(aces):
+    has_ace = False
     for ace in aces:
         if ace == 11:
             aces.remove(11)
             aces.append(1)
             hasAce = True
             break
-    return hasAce, aces
+    return has_ace, aces
 
 
 def get_two_cards(deck):
     card = deck.pop()
     card2 = deck.pop()
-    if isAce(card[0]) and isAce(card2[0]):
+    if is_ace(card[0]) and is_ace(card2[0]):
         total = 12
     else:
         total = card[1] + card2[1]
-    titleOne = card[0]
-    titleTwo = card2[0]
-    return titleOne, titleTwo, total, deck
+    title_one = card[0]
+    title_two = card2[0]
+    return title_one, title_two, total, deck
 
 
 def get_players():
@@ -79,31 +77,31 @@ def get_players():
         print(c.cl)
         exit()
 
-def print_hand(titleOne, titleTwo, total):
-    print('Your hand contains the {}{}{}  and the {}{}{} for a total of {}{}{} points.'.format(c.b, titleOne, c.x, c.b, titleTwo, c.x, c.m, total, c.x))
+def print_hand(title_one, title_two, total):
+    print('Your hand contains the {}{}{} and the {}{}{} for a total of {}{}{} points.'.format(c.b, title_one, c.x, c.b, title_two, c.x, c.m, total, c.x))
 
 
 def get_one_more_card(deck, total):
     card = deck.pop()
     title = card[0]
     total += card[1]
-    print(c.x+'{}Your new card is the {}{}{}. You now have {}{}{} Points.'.format(c.b, title, c.x, c.m, total, c.x))
+    print('{}Your new card is the {}{}{}. You now have {}{}{} Points.'.format(c.x, c.b, title, c.x, c.m, total, c.x))
     return total, deck, title
 
 
-def ask_to_hit(hand, firstTime):
+def ask_to_hit(hand, first_time):
     try:
         while True:
-            itemstring = 'Your hand contains:'
+            item_string = 'Your hand contains:'
             for item in hand:
-                itemstring += item + ' '
-            if firstTime is False:
-                print(itemstring)
-            wantToHit = input('Would you like to hit (take another card)? > ' + c.c).strip().lower()
-            if 'y' in wantToHit:
+                item_string += item + ' '
+            if first_time is False:
+                print(item_string)
+            want_to_hit = input('Would you like to hit (take another card)? > ' + c.c).strip().lower()
+            if 'y' in want_to_hit:
                 return True
                 break
-            elif 'n' in wantToHit:
+            elif 'n' in want_to_hit:
                 return False
                 break
             else:
@@ -114,29 +112,29 @@ def ask_to_hit(hand, firstTime):
 
 
 def get_round_values(players):
-    firstTime = []
+    first_time = []
     hands = []
     totals = []
     aces = []
     for x in range(players):
-        firstTime.append(True)
+        first_time.append(True)
         totals.append(0)
         hands.append([])
         aces.append([])
-    return firstTime, hands, totals, aces
+    return first_time, hands, totals, aces
 
 
 def gen_perm_values(players):
-    playerNames = []
+    player_names = []
     losses = []
     wins = []
     ties = []
     for x in range(players):
-        playerNames.append('Player '+str(x + 1))
+        player_names.append('Player '+str(x + 1))
         wins.append(0)
         ties.append(0)
         losses.append(0)
-    return playerNames, wins, ties, losses
+    return player_names, wins, ties, losses
 
 
 def find_best(totals, hands):
@@ -154,7 +152,7 @@ def find_best(totals, hands):
 
 
 def find_winners(totals, hands, losses):
-    highest, shortest = findBest(totals, hands)
+    highest, shortest = find_best(totals, hands)
     winners = []
     for x in range(len(totals)):
         if totals[x] == highest and len(hands[x]) == shortest:
@@ -165,53 +163,52 @@ def find_winners(totals, hands, losses):
 
 
 def add_aces(card1, card2, aces):
-    if isAce(card1):
+    if is_ace(card1):
         aces.append(11)
-    elif isAce(card2):
+    elif is_ace(card2):
         aces.append(11)
     return aces
 
 
-def print_winners(playerNames, winners, wins, ties):
+def print_winners(player_names, winners, wins, ties):
     if len(winners) > 1:
         names = ''
         string = 'The winners are:'
         for name in winners:
             ties[name] += 1
-            names += playerNames[name] + ' '
+            names += player_names[name] + ' '
         print(string + c.o+names+c.x)
     elif len(winners) == 1:
-        print('{}The winner is {}{}{}!'.format(c.x, c.g, playerNames[winners[0]], c.x))
+        print('{}The winner is {}{}{}!'.format(c.x, c.g, player_names[winners[0]], c.x))
         wins[winners[0]] += 1
     else:
         print('{}Nobody{} won this round!'.format(c.r,c.x))
     return wins, ties
 
 
-def print_data(playerNames, wins, ties, losses, stage, hands, totals):
-    for i in range(len(playerNames)):
+def print_data(player_names, wins, ties, losses, stage, hands, totals):
+    for i in range(len(player_names)):
         hand = ""
         for card in hands[i]:
             hand += (card + ", ")
         hand = hand[:-2]
-        print("{}{}{} card's include: {}{}{} for a total of: {}{}{} points.".format(c.m, playerNames[i], c.x, c.y, hand, c.x, c.b, totals[i], c.x))
+        print("{}{}{} card's include: {}{}{} for a total of: {}{}{} points.".format(c.m, player_names[i], c.x, c.y, hand, c.x, c.b, totals[i], c.x))
     print('\nplayer  |wins|ties|losses|%win/tie|%lose')
     for x in range(len(playerNames)):
         losspercent = round(losses[x]/(stage+1)*100, 2)
         winpercent = 100 - losspercent
-        print('{}|{}   |{}   |{}     |{}    |{}    '.format(playerNames[x], wins[x], ties[x], losses[x], winpercent, losspercent))
+        print('{}|{}   |{}   |{}     |{}    |{}    '.format(player_names[x], wins[x], ties[x], losses[x], winpercent, losspercent))
     print('\n\n')
 
 
 def print_intro():
     print('''{}{}Welcome to {}Blackjack{}!
 Created by: {}Peter S.{}
-Version: {}0.9.5{}'''.format(c.x, c.cl, c.g, c.x, c.b, c.x, c.m, c.x))
+Version: {}0.9.8{}'''.format(c.x, c.cl, c.g, c.x, c.b, c.x, c.m, c.x))
 
 
 def print_starting_data(rounds):
-    print('''{}{}
-Maximum rounds:{}{}{}
+    print('''{}{}Maximum rounds:{}{}{}
 Decks used: {}8{}
 {}Note{}: Earlier players are at a disadvantage
 if you let other people look at your screen.'''.format(c.cl, c.x, c.y, rounds-1, c.x, c.y, c.x, c.y, c.x))
