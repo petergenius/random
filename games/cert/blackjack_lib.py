@@ -1,5 +1,6 @@
 import skilstak.colors as c
 from time import sleep
+from random import shuffle
 
 
 def create_cards():
@@ -213,3 +214,47 @@ def print_starting_data(rounds):
 Decks used: {}8{}
 {}Note{}: Earlier players are at a disadvantage
 if you let other people look at your screen.'''.format(c.cl, c.x, c.y, rounds-1, c.x, c.y, c.x, c.y, c.x))
+
+
+def pass_to_next(players):
+    if z != players-1:
+        print('{}{}Pass to Next Player within 5 seconds{}'.format(c.cl, c.r, c.x))
+        sleep(5)
+    print(c.cl)
+def handle_betting(hands, first_time, deck, totals):
+    while True:
+        wants_to_hit = ask_to_hit(hands[z], first_time)
+        if wants_to_hit is True:
+            first_time[z] = False
+            totals[z], deck, title = get_one_more_card(deck, totals[z])
+            if 'ace' in title:
+                aces[z].append(11)
+            hands[z].append(title)
+            if totals[z] > 21:
+                has_an_ace, aces[z] = has_ace(aces[z])
+                if has_an_ace is False:
+                    print('Oh No! You busted.')
+                    sleep(3)
+                    pass_to_next(players)
+                    break
+                else:
+                    totals[z] -= 10
+                    print(c.x + 'You went over, so your ace valued 11 was changed into a 1.')
+                    print('You now have {}{}{} points.'.format(c.b, totals[z], c.x))
+        else:
+            pass_to_next(players)
+            break
+    return totals, deck
+
+
+def start_game():
+    print_intro()
+    players = get_players()
+    deck = create_cards() * 8
+    rounds = round((52 * 8) / (4 * players))
+    shuffle(deck)
+    player_names, wins, ties, losses = gen_perm_values(players)
+    print_starting_data(rounds)
+    return players, deck, rounds, player_names, wins, ties, losses
+
+
