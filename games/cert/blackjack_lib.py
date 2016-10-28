@@ -77,6 +77,7 @@ def get_players():
         print(c.cl)
         exit()
 
+
 def print_hand(title_one, title_two, total):
     print('Your hand contains the {}{}{} and the {}{}{} for a total of {}{}{} points.'.format(c.b, title_one, c.x, c.b, title_two, c.x, c.m, total, c.x))
 
@@ -182,7 +183,7 @@ def print_winners(player_names, winners, wins, ties):
         print('{}The winner is {}{}{}!'.format(c.x, c.g, player_names[winners[0]], c.x))
         wins[winners[0]] += 1
     else:
-        print('{}Nobody{} won this round!'.format(c.r,c.x))
+        print('{}Nobody{} won this round!'.format(c.r, c.x))
     return wins, ties
 
 
@@ -212,4 +213,3 @@ def print_starting_data(rounds):
 Decks used: {}8{}
 {}Note{}: Earlier players are at a disadvantage
 if you let other people look at your screen.'''.format(c.cl, c.x, c.y, rounds-1, c.x, c.y, c.x, c.y, c.x))
-
