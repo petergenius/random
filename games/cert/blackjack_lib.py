@@ -204,11 +204,11 @@ def print_data(player_names, wins, ties, losses, stage, hands, totals):
 def print_intro():
     print('''{}{}Welcome to {}Blackjack{}!
 Created by: {}Peter S.{}
-Version: {}0.9.8{}'''.format(c.x, c.cl, c.g, c.x, c.b, c.x, c.m, c.x))
+Version: {}0.9.9{}'''.format(c.x, c.cl, c.g, c.x, c.b, c.x, c.m, c.x))
 
 
 def print_starting_data(rounds):
-    print('''{}{}Maximum rounds:{}{}{}
+    print('''{}{}Maximum rounds: {}{}{}
 Decks used: {}8{}
 {}Note{}: Earlier players are at a disadvantage
 if you let other people look at your screen.'''.format(c.cl, c.x, c.y, rounds-1, c.x, c.y, c.x, c.y, c.x))
