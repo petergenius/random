@@ -2,67 +2,66 @@
 '''a multiplayer blackjack game'''
 import skilstak.colors as c
 import random
-import time
+from time import sleep
 from blackjack_lib import *
 
+def pass_to_next(players):
+    if z != players-1:
+        print('{}{}Pass to Next Player within 5 seconds{}'.format(c.cl, c.r, c.x))
+        sleep(5)
+    print(c.cl)
 
 if __name__ == '__main__':
     print_intro()
-    players = getPlayers()
-    deck = createcards() * 8
+    players = get_players()
+    deck = create_cards() * 8
     rounds = round((52 * 8) / (4 * players))
     random.shuffle(deck)
-    playerNames, wins, ties, losses = getpermvalues(players)
+    player_names, wins, ties, losses = gen_perm_values(players)
     print_starting_data(rounds)
     try:
-        input(c.x + 'Press' + c.m + ' enter' + c.x +' to continue.\n' + c.c)
-        knowsHowToPlay()
+        input('{}Press{} enter{} to continue.\n'.format(c.x,c.m,c.x))
+        knows_how_to_play()
         
         print(c.cl)
         for stage in range(rounds-1):
-            firstTime, hands, totals, aces = getroundvalues(players)
-            print(c.x+'round' + c.b,stage+1)
-            start = input(c.x + 'Press' + c.m + ' enter'+c.x+' to start the round, otherwise type anything.\n')
+            first_time, hands, totals, aces = get_round_values(players)
+            print('{}Round{}{}'.format(c.x, c.b, stage+1))
+            start = input('{}Press{} enter{} to start the round, otherwise type anything.\n'.format(c.x,c.m,c.x))
             if len(start) != 0:
                 exit()
             for z in range(players):
-                print(c.cl + c.v+ playerNames[z] + c.x)
-                title1, title2, totals[z],deck = getTwoCards(deck)
+                print('{}{}{}{}'.format(c.cl, c.v, player_names[z], c.x))
+                title1, title2, totals[z],deck = get_two_cards(deck)
                 hands[z].append(title1)
                 hands[z].append(title2)
-                aces[z] = addAces(title1,title2,aces[z]) 
-                printHand(title1,title2,totals[z])
+                aces[z] = add_aces(title1,title2,aces[z]) 
+                print_hand(title1,title2,totals[z])
                 while True:
-                    wantsToHit = askToHit(hands[z], firstTime)
+                    wants_to_hit = ask_to_hit(hands[z], first_time)
                     if wantsToHit == True:
-                        firstTime[z] = False
-                        totals[z], deck, title = getOneMoreCard(deck,totals[z])
+                        first_time[z] = False
+                        totals[z], deck, title = get_one_more_card(deck,totals[z])
                         if 'ace' in title:
                             aces[z].append(11)
                         hands[z].append(title)
                         if totals[z] > 21:
-                            hasAnAce,aces[z] = hasAce(aces[z])
-                            if hasAnAce == False:
+                            has_an_ace,aces[z] = has_ace(aces[z])
+                            if has_an_ace == False:
                                 print('Oh No! You busted.')
-                                time.sleep(3)
-                                if z != players-1:
-                                    print(c.cl + c.r+ 'Pass to Next Player within 5 seconds' +c.x)
-                                    time.sleep(5)
-                                print(c.cl)
+                                sleep(3)
+                                pass_to_next(players)
                                 break
                             else:
                                 totals[z] -= 10
                                 print(c.x + 'You went over, so your ace valued 11 was changed into a 1.')
-                                print('You now have'+c.b,totals[z],c.x+'points.')
+                                print('You now have points.'.format(c.b,totals[z],c.x))
                     else:
-                        if z != players-1:
-                            print(c.cl + c.r + 'Pass to Next Player within 5 seconds' + c.x)
-                            time.sleep(5)
-                        print(c.cl)
+                        pass_to_next(players)
                         break
-            winners, losses = findWinners(totals, hands,losses)
-            wins, ties = printWinners(playerNames,winners,wins,ties)
-            printData(playerNames, wins, ties, losses, stage,hands,totals)
+            winners, losses = find_winners(totals, hands, losses)
+            wins, ties = print_winners(player_names, winners, wins, ties)
+            print_data(player_names, wins, ties, losses, stage, hands, totals)
     except KeyboardInterrupt:
         print(c.cl)
         exit()

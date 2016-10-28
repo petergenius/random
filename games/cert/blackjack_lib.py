@@ -2,7 +2,7 @@ import skilstak.colors as c
 from time import sleep
 
 
-def createcards():
+def create_cards():
     suits = ['diamonds', 'clubs', 'hearts', 'spades']
     values = [['ace', 11], ['jack', 10], ['queen', 10], ['king', 10], ['2', 2], ['3', 3], ['4', 4], ['5', 5], ['6', 6], ['7', 7], ['8', 8], ['9', 9], ['10', 10]]
     standardDeck = []
@@ -15,7 +15,7 @@ def createcards():
     return standardDeck
 
 
-def printrules():
+def print_rules():
     print('''
 {}Objective{}:Get as close to 21 points without going over.
 {}How to win{}:Be the closest to 21 points. If you go over, you lose.
@@ -25,7 +25,7 @@ def printrules():
     input('Press enter to continue.\n')
 
 
-def knowsHowToPlay():
+def knows_how_to_play():
     answered = False
     while answered is False:
         answer = input('{}{}Does everyone know how to play blackjack?({}Y{}/{}n{}) > {}'.format(c.x, c.cl, c.g, c.x, c.r, c.x, c.c)).lower().strip()
@@ -55,7 +55,7 @@ def hasAce(aces):
     return hasAce, aces
 
 
-def getTwoCards(deck):
+def get_two_cards(deck):
     card = deck.pop()
     card2 = deck.pop()
     if isAce(card[0]) and isAce(card2[0]):
@@ -67,7 +67,7 @@ def getTwoCards(deck):
     return titleOne, titleTwo, total, deck
 
 
-def getPlayers():
+def get_players():
     try:
         while True:
             players = input('How many players? > ' + c.c)
@@ -79,12 +79,11 @@ def getPlayers():
         print(c.cl)
         exit()
 
-
-def printHand(titleOne, titleTwo, total):
+def print_hand(titleOne, titleTwo, total):
     print('Your hand contains the {}{}{}  and the {}{}{} for a total of {}{}{} points.'.format(c.b, titleOne, c.x, c.b, titleTwo, c.x, c.m, total, c.x))
 
 
-def getOneMoreCard(deck, total):
+def get_one_more_card(deck, total):
     card = deck.pop()
     title = card[0]
     total += card[1]
@@ -92,7 +91,7 @@ def getOneMoreCard(deck, total):
     return total, deck, title
 
 
-def askToHit(hand, firstTime):
+def ask_to_hit(hand, firstTime):
     try:
         while True:
             itemstring = 'Your hand contains:'
@@ -114,7 +113,7 @@ def askToHit(hand, firstTime):
         exit()
 
 
-def getroundvalues(players):
+def get_round_values(players):
     firstTime = []
     hands = []
     totals = []
@@ -127,7 +126,7 @@ def getroundvalues(players):
     return firstTime, hands, totals, aces
 
 
-def getpermvalues(players):
+def gen_perm_values(players):
     playerNames = []
     losses = []
     wins = []
@@ -140,7 +139,7 @@ def getpermvalues(players):
     return playerNames, wins, ties, losses
 
 
-def findBest(totals, hands):
+def find_best(totals, hands):
     highest = 0
     shortest = 999
     for total in totals:
@@ -154,7 +153,7 @@ def findBest(totals, hands):
     return highest, shortest
 
 
-def findWinners(totals, hands, losses):
+def find_winners(totals, hands, losses):
     highest, shortest = findBest(totals, hands)
     winners = []
     for x in range(len(totals)):
@@ -165,7 +164,7 @@ def findWinners(totals, hands, losses):
     return winners, losses
 
 
-def addAces(card1, card2, aces):
+def add_aces(card1, card2, aces):
     if isAce(card1):
         aces.append(11)
     elif isAce(card2):
@@ -173,7 +172,7 @@ def addAces(card1, card2, aces):
     return aces
 
 
-def printWinners(playerNames, winners, wins, ties):
+def print_winners(playerNames, winners, wins, ties):
     if len(winners) > 1:
         names = ''
         string = 'The winners are:'
@@ -189,7 +188,7 @@ def printWinners(playerNames, winners, wins, ties):
     return wins, ties
 
 
-def printData(playerNames, wins, ties, losses, stage, hands, totals):
+def print_data(playerNames, wins, ties, losses, stage, hands, totals):
     for i in range(len(playerNames)):
         hand = ""
         for card in hands[i]:
