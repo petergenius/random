@@ -194,7 +194,7 @@ def print_data(player_names, wins, ties, losses, stage, hands, totals):
         hand = hand[:-2]
         print("{}{}{} card's include: {}{}{} for a total of: {}{}{} points.".format(c.m, player_names[i], c.x, c.y, hand, c.x, c.b, totals[i], c.x))
     print('\nplayer  |wins|ties|losses|%win/tie|%lose')
-    for x in range(len(playerNames)):
+    for x in range(len(player_names)):
         losspercent = round(losses[x]/(stage+1)*100, 2)
         winpercent = 100 - losspercent
         print('{}|{}   |{}   |{}     |{}    |{}    '.format(player_names[x], wins[x], ties[x], losses[x], winpercent, losspercent))
