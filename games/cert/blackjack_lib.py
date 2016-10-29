@@ -49,7 +49,7 @@ def has_ace(aces):
         if ace == 11:
             aces.remove(11)
             aces.append(1)
-            hasAce = True
+            has_ace = True
             break
     return has_ace, aces
 
@@ -241,6 +241,7 @@ def handle_betting(players, hands, first_time, z, deck, totals, aces):
                     totals[z] -= 10
                     print(c.x + 'You went over, so your ace valued 11 was changed into a 1.')
                     print('You now have {}{}{} points.'.format(c.b, totals[z], c.x))
+
         else:
             pass_to_next(players, z)
             break
