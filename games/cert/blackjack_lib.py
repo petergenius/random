@@ -216,12 +216,12 @@ Decks used: {}8{}
 if you let other people look at your screen.'''.format(c.cl, c.x, c.y, rounds-1, c.x, c.y, c.x, c.y, c.x))
 
 
-def pass_to_next(players):
+def pass_to_next(players, z):
     if z != players-1:
         print('{}{}Pass to Next Player within 5 seconds{}'.format(c.cl, c.r, c.x))
         sleep(5)
     print(c.cl)
-def handle_betting(hands, first_time, deck, totals):
+def handle_betting(players, hands, first_time, z, deck, totals, aces):
     while True:
         wants_to_hit = ask_to_hit(hands[z], first_time)
         if wants_to_hit is True:
@@ -235,14 +235,14 @@ def handle_betting(hands, first_time, deck, totals):
                 if has_an_ace is False:
                     print('Oh No! You busted.')
                     sleep(3)
-                    pass_to_next(players)
+                    pass_to_next(players, z)
                     break
                 else:
                     totals[z] -= 10
                     print(c.x + 'You went over, so your ace valued 11 was changed into a 1.')
                     print('You now have {}{}{} points.'.format(c.b, totals[z], c.x))
         else:
-            pass_to_next(players)
+            pass_to_next(players, z)
             break
     return totals, deck
 

@@ -22,7 +22,7 @@ if __name__ == '__main__':
                 hands[z].append(title2)
                 aces[z] = bl.add_aces(title1, title2, aces[z])
                 bl.print_hand(title1, title2, totals[z])
-                totals, deck = bl.handle_betting(hands, first_time, deck, totals)
+                totals, deck = bl.handle_betting(players, hands, first_time, z, deck, totals, aces)
             winners, losses = bl.find_winners(totals, hands, losses)
             wins, ties = bl.print_winners(player_names, winners, wins, ties)
             bl.print_data(player_names, wins, ties, losses, stage, hands, totals)
