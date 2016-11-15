@@ -1,15 +1,18 @@
 #!/usr/bin/env python3
 print('a * b√(cx^d + e) + f = g')
-a = int(input('a > '))
-b = int(input('b > '))
-c = int(input('c > '))
-d = int(input('d > '))
-e = int(input('e > '))
-f = int(input('f > '))
-g = int(input('g > '))
-iso_var_side = f-e / a
-powered_side = (iso_var_side ^ b) - d
+a = float(input('a > '))
+b = float(input('b > '))
+c = float(input('c > '))
+d = float(input('d > '))
+e = float(input('e > '))
+f = float(input('f > '))
+g = float(input('g > '))
+iso_var_side = g-f / a
+print('{}√({}x^{} + {}) = {}'.format(b,c,d,e,iso_var_side))
+powered_side = (iso_var_side ** b) - e
+print('{}x^{} + {} = {}'.format(c,d,e,powered_side))
 #cx^d = side
+'''NOT WORKING YET!!!
 if d == 2:
    s = powered_side * -1
    #cx^2 - side = 0 
@@ -18,5 +21,8 @@ if d == 2:
    top = (-4*c*s)**0.5
    top_2 = top * -1
    print(top/bottom,top_2/bottom)
-elif c == 1:
+'''
+if d == 1:
     print(powered_side/c)
+else:
+    print('Ha! Have fun solving that one...')
