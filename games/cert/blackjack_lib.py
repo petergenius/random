@@ -1,7 +1,7 @@
 import skilstak.colors as c
 from time import sleep
 from random import shuffle
-
+from player_class import Player
 
 def create_cards():
     suits = ['diamonds', 'clubs', 'hearts', 'spades']
@@ -126,17 +126,11 @@ def get_round_values(players):
     return first_time, hands, totals, aces
 
 
-def gen_perm_values(players):
-    player_names = []
-    losses = []
-    wins = []
-    ties = []
-    for x in range(players):
-        player_names.append('Player '+str(x + 1))
-        wins.append(0)
-        ties.append(0)
-        losses.append(0)
-    return player_names, wins, ties, losses
+def gen_perm_values(num_of_players):
+    players = []
+    for x in range(num_of_players):
+        players.append(Player(x))
+    return players
 
 
 def find_best(totals, hands):
@@ -153,15 +147,15 @@ def find_best(totals, hands):
     return highest, shortest
 
 
-def find_winners(totals, hands, losses):
+def find_winners(totals, hands, players):
     highest, shortest = find_best(totals, hands)
     winners = []
     for x in range(len(totals)):
         if totals[x] == highest and len(hands[x]) == shortest:
             winners.append(x)
         else:
-            losses[x] += 1
-    return winners, losses
+            players[x].add_loss()
+    return winners, players
 
 
 def add_aces(card1, card2, aces):
@@ -172,7 +166,7 @@ def add_aces(card1, card2, aces):
     return aces
 
 
-def print_winners(player_names, winners, wins, ties):
+def print_winners(players, winners, wins, ties):
     if len(winners) > 1:
         names = ''
         string = 'The winners are:'
@@ -254,8 +248,8 @@ def start_game():
     deck = create_cards() * 8
     rounds = round((52 * 8) / (4 * players))
     shuffle(deck)
-    player_names, wins, ties, losses = gen_perm_values(players)
+    player_classes = gen_perm_values(players)
     print_starting_data(rounds)
-    return players, deck, rounds, player_names, wins, ties, losses
+    return players, player_classes, deck, rounds
 
 

@@ -1,0 +1,22 @@
+#!/usr/bin/env python3
+print('a * b√(cx^d + e) + f = g')
+a = int(input('a > '))
+b = int(input('b > '))
+c = int(input('c > '))
+d = int(input('d > '))
+e = int(input('e > '))
+f = int(input('f > '))
+g = int(input('g > '))
+iso_var_side = f-e / a
+powered_side = (iso_var_side ^ b) - d
+#cx^d = side
+if d == 2:
+   s = powered_side * -1
+   #cx^2 - side = 0 
+   #-b+-srb^2-4ac
+   bottom = c * 2 
+   top = (-4*c*s)**0.5
+   top_2 = top * -1
+   print(top/bottom,top_2/bottom)
+elif c == 1:
+    print(powered_side/c)
