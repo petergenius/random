@@ -1,16 +1,15 @@
 #!/usr/bin/env python3
-print('a * b√(cx^d + e) + f = g')
+print('a * b√(cx + d) + e = f')
 a = float(input('a > '))
 b = float(input('b > '))
 c = float(input('c > '))
 d = float(input('d > '))
 e = float(input('e > '))
 f = float(input('f > '))
-g = float(input('g > '))
-iso_var_side = g-f / a
-print('{}√({}x^{} + {}) = {}'.format(b,c,d,e,iso_var_side))
+iso_var_side = f-e / a
+print('{}√({}x + {}) = {}'.format(b,d,e,iso_var_side))
 powered_side = (iso_var_side ** b) - e
-print('{}x^{} + {} = {}'.format(c,d,e,powered_side))
+print('{}x + {} = {}'.format(c,d,powered_side))
 #cx^d = side
 '''NOT WORKING YET!!!
 if d == 2:
