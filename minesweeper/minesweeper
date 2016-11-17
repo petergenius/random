@@ -6,19 +6,23 @@ field = '''
 000000
 '''
 list_field = field.split('\n')
-for linenum, line in enumerate(list_field):
-    for charnum, character in enumerate(line):
+for linenum in range(len(list_field)):
+    line = list_field[linenum]
+    for charnum in range(len(line)):
+        character = line[charnum]
         if character != '#':
             if character != line[0]:
                 #check left
                 if line[charnum-1] == '#':
-                    print(linenum + charnum + 'ITS A BOMB TO THE LEFT!')
+                    print(linenum, charnum , 'ITS A BOMB TO THE LEFT!')
             elif character != line[-1]:
                 if line[charnum+1] == '#':
-                    print(linenum + charnum + 'trap-right')
+                    print(linenum, charnum, 'trap-right')
+            '''
             elif line != list_field[0]:
                 if list_field[linenum-1][charnum] == '#':
-                    print(linenum + charnum + 'bomb above')
+                    print(linenum , charnum , 'bomb above')
             elif line != list_field[-1]:
                 if list_field[linenum+1][charnum] == '#':
-                    print(linenum + charnum + 'bomb below')
+                    print(linenum , charnum , 'bomb below')
+            '''

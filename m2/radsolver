@@ -1,27 +1,40 @@
 #!/usr/bin/env python3
-print('a * b√(cx + d) + e = f')
+print('''a * b√(cx + d) + e = f
+'b' is the index
+'f' can be x if needed, nothing else can. NOTE: x must be 1, and if so 'a' must be one as well.
+''')
 a = float(input('a > '))
 b = float(input('b > '))
 c = float(input('c > '))
 d = float(input('d > '))
 e = float(input('e > '))
-f = float(input('f > '))
-iso_var_side = f-e / a
-print('{}√({}x + {}) = {}'.format(b,d,e,iso_var_side))
-powered_side = (iso_var_side ** b) - e
-print('{}x + {} = {}'.format(c,d,powered_side))
-#cx^d = side
-'''NOT WORKING YET!!!
-if d == 2:
-   s = powered_side * -1
-   #cx^2 - side = 0 
-   #-b+-srb^2-4ac
-   bottom = c * 2 
-   top = (-4*c*s)**0.5
-   top_2 = top * -1
-   print(top/bottom,top_2/bottom)
-'''
-if d == 1:
-    print(powered_side/c)
+raw_f = input('f > ')
+
+if raw_f == 'x':
+    solve_quadratic()
 else:
-    print('Ha! Have fun solving that one...')
+    solve_singular_equation(int(f))
+def solve_singular_equation(f):
+    other_side_of_radical = f-e / a
+    print('{}√({}x + {}) = {}'.format(b,d,e,other_side_of_radical))
+    other_side_powered = (iso_var_side ** b) - d
+    print('{}x + {} = {}'.format(c,d,other_side_powered))
+    print(other_side_powered/c)
+#(x - a)^2 = x^2 - 2a - a^2
+def solve_quadratic():
+    #√2x+1 - 5 = x
+    #2x+1 = (x + 5)^2
+    #2x+1 = x^2 + 10x + 25
+    #0 = x^2 + 8x + 24
+    bottom = 2
+    b_final = (e*-2) - c
+    c_final = (e**2) - d
+    neg_b = b_final * -1
+    top = neg_b + (-4*c_final)**0.5
+    top_2 = neg_b - (-4*c_final)**0.5
+    sol_1 = top/bottom
+    sol_2 = top_2/bottom
+    print('solutions:',sol1,sol2)
+    sol1_solved = (c*sol_1 + d)**(1.0/b) * a + e 
+    sol2_solved = (c*sol_2 + d)**(1.0/b) * a + e 
+    
