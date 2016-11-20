@@ -1,28 +1,97 @@
 #!/usr/bin/env python3
-field = '''
-000000
-0000#0
-###000
-000000
-'''
-list_field = field.split('\n')
-for linenum in range(len(list_field)):
-    line = list_field[linenum]
-    for charnum in range(len(line)):
-        character = line[charnum]
-        if character != '#':
-            if character != line[0]:
-                #check left
-                if line[charnum-1] == '#':
-                    print(linenum, charnum , 'ITS A BOMB TO THE LEFT!')
-            elif character != line[-1]:
-                if line[charnum+1] == '#':
-                    print(linenum, charnum, 'trap-right')
-            '''
-            elif line != list_field[0]:
-                if list_field[linenum-1][charnum] == '#':
-                    print(linenum , charnum , 'bomb above')
-            elif line != list_field[-1]:
-                if list_field[linenum+1][charnum] == '#':
-                    print(linenum , charnum , 'bomb below')
-            '''
+import random, string
+def is_real(field,y,x):
+    height = len(field)-1
+    length = len(field[0])-1
+    if x >= 0 and x <= length and y >= 0 and y <= height:
+        return True
+    else:
+        return False
+def check_for_bombs(field,x, y):
+    print(y,'row',x,'char')
+    print(field,':',field[x][y])
+    count = 0
+    if is_real(field,y,x-1):
+        if field[y][x-1] == 'X':
+            count += 1
+    if is_real(field,y,x+1):
+        print('is running')
+        if field[y][x+1] == 'X':
+            count += 1
+    if is_real(field,y+1,x):
+        if field[y+1][x] == 'X':
+            count += 1
+    if is_real(field,y-1,x):
+        if field[y-1][x] == 'X':
+            count += 1
+    if is_real(field,y-1,x-1):
+        if field[y-1][x-1] == 'X':
+            count += 1
+    if is_real(field,y+1,x+1):
+        if field[y+1][x+1] == 'X':
+            count += 1
+    if is_real(field,y+1,x-1):
+        if field[y+1][x-1] == 'X':
+            count += 1
+    if is_real(field,y-1,x-1):
+        if field[y-1][x+1] == 'X':
+            count += 1
+    return count
+
+def add_char(field,pair,char):
+    x = pair[0]
+    y = pair[1]
+    field[y][x] = char
+    return field
+
+def add_all_bombs(field,field_coords,num_of_bombs):
+    for count in range(num_of_bombs):
+        coord = random.choice(field_coords)
+        field_coords.remove(coord)
+        field = add_char(field,coord,'X')
+    return field
+def make_field(length,height,num_of_bombs):
+    if length * height < num_of_bombs:
+        print('too many bombs!')
+        exit()
+    blank = []
+    bomb_pairs = []
+    for row in range(height):
+        blank.append(['0']*length )
+        for cell in range(length):
+            bomb_pairs.append([cell,row])
+    bombed_field = add_all_bombs(blank,bomb_pairs,num_of_bombs)
+    return bombed_field
+def make_visible_form(field,length,height):
+    top = [' ']
+    alphabet = list(string.ascii_lowercase)
+    for count in range(length):
+        top.append(alphabet[count])
+    field.insert(0,top)
+    for row_num in range(height+1):
+        if row_num != 0: #row with letters
+            field[row_num].insert(0,row_num)
+    return field
+def get_user_cell():
+    alphabet = list(string.ascii_lowercase)
+    cell = input(' > ')
+    y = alphabet.index(cell[0])+1
+    x = int(cell[1:])
+    return y, x
+def print_grid(grid):
+    for row in grid:
+        for char in row:
+            print(char,end=' ')
+        print('\n')
+length = int(input('length of field > '))
+height = int(input('height of field > '))
+bombs = int(input('number of bombs > '))
+field = make_field(length,height,bombs)
+pretty_form = make_visible_form(field,length,height)
+print_grid(pretty_form)
+y, x = get_user_cell()
+if pretty_form[x][y] == 'X':
+    print('you hit a bomb')
+else:
+    pretty_form = add_char(pretty_form,[y,x],str(check_for_bombs(pretty_form,x,y)))
+    print_grid(pretty_form)

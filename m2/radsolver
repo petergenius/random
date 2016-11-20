@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 def solve_singular_equation(f):
-    other_side_of_radical = f-e / a
-    print('{}√({}x + {}) = {}'.format(b,d,e,other_side_of_radical))
-    other_side_powered = (iso_var_side ** b) - d
+    other_side_of_radical = (f-e) / a
+    print('{}√({}x + {}) = {}'.format(b,c,d,other_side_of_radical))
+    other_side_powered = (other_side_of_radical ** b) - d
     print('{}x + {} = {}'.format(c,d,other_side_powered))
     print('solution:', other_side_powered/c)
 #(x - a)^2 = x^2 - 2a - a^2
@@ -56,4 +56,4 @@ raw_f = input('f > ')
 if raw_f == 'x':
     solve_quadratic()
 else:
-    solve_singular_equation(int(f))
+    solve_singular_equation(float(raw_f))

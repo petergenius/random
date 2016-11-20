@@ -1,7 +1,6 @@
 import skilstak.colors as c
 from time import sleep
 from random import shuffle
-from player_class import Player
 
 def create_cards():
     suits = ['diamonds', 'clubs', 'hearts', 'spades']
