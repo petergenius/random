@@ -1,45 +1,45 @@
 #!/usr/bin/env python3
 import random, string
-def is_real(field,y,x):
-    height = len(field)-1
-    length = len(field[0])-1
+def is_real(grid,y,x):
+    height = len(grid)-1
+    length = len(grid[0])-1
     if x >= 0 and x <= length and y >= 0 and y <= height:
         return True
     else:
         return False
-def check_for_bombs(field,x, y):
+def check_for_bombs(grid,x, y):
     count = 0
-    if is_real(field,y,x-1):
-        if field[y][x-1] == 'X':
+    if is_real(grid,y,x-1):
+        if grid[y][x-1] == 'X':
             count += 1
-    if is_real(field,y,x+1):
-        if field[y][x+1] == 'X':
+    if is_real(grid,y,x+1):
+        if grid[y][x+1] == 'X':
             count += 1
-    if is_real(field,y+1,x):
-        if field[y+1][x] == 'X':
+    if is_real(grid,y+1,x):
+        if grid[y+1][x] == 'X':
             count += 1
-    if is_real(field,y-1,x):
-        if field[y-1][x] == 'X':
+    if is_real(grid,y-1,x):
+        if grid[y-1][x] == 'X':
             count += 1
-    if is_real(field,y-1,x-1):
-        if field[y-1][x-1] == 'X':
+    if is_real(grid,y-1,x-1):
+        if grid[y-1][x-1] == 'X':
             count += 1
-    if is_real(field,y+1,x+1):
-        if field[y+1][x+1] == 'X':
+    if is_real(grid,y+1,x+1):
+        if grid[y+1][x+1] == 'X':
             count += 1
-    if is_real(field,y+1,x-1):
-        if field[y+1][x-1] == 'X':
+    if is_real(grid,y+1,x-1):
+        if grid[y+1][x-1] == 'X':
             count += 1
-    if is_real(field,y-1,x+1):
-        if field[y-1][x+1] == 'X':
+    if is_real(grid,y-1,x+1):
+        if grid[y-1][x+1] == 'X':
             count += 1
     return count
 
-def add_char(field,pair,char):
+def add_char(grid,pair,char):
     x = pair[0]
     y = pair[1]
-    field[y][x] = char
-    return field
+    grid[y][x] = char
+    return grid
 
 def add_all_bombs(grid,field_coords,num_of_bombs):
     for count in range(num_of_bombs):
@@ -71,10 +71,10 @@ def add_markers(grid,alphabet):
         top.append(alphabet[count])
     
     grid.insert(0,top)
-    print(grid)
     for row_num in range(len(grid)):
         if row_num != 0:
             grid[row_num].insert(0,row_num)
+
     return grid
 def get_user_cell(alphabet):
     cell = input(' > ')
@@ -94,13 +94,12 @@ field = make_field(length, height, bombs)
 blank = [len(field[0]) * ['#']] * len(field)
 
 #print(field)
-#print(blank)
+print(blank)
 user_grid = add_markers(blank, alphabet)
 print(user_grid)
-print_grid(field)
 x, y = get_user_cell(alphabet)
 if field[y][x] == 'X':
-    print('you hit a bomb')
+    print('you hit  a bomb')
 else:
     pass
     #pretty_form = add_char(field,[y,x],str(check_for_bombs(field,x,y)))
