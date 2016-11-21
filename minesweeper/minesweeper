@@ -69,7 +69,9 @@ def add_markers(grid,alphabet):
     top = [' ']
     for count in range(len(grid[0])):
         top.append(alphabet[count])
+    
     grid.insert(0,top)
+    print(grid)
     for row_num in range(len(grid)):
         if row_num != 0:
             grid[row_num].insert(0,row_num)
@@ -90,10 +92,12 @@ height = int(input('height of field > '))
 bombs = int(input('number of bombs > '))
 field = make_field(length, height, bombs)
 blank = [len(field[0]) * ['#']] * len(field)
-print(blank)
-print(alphabet)
+
+#print(field)
+#print(blank)
 user_grid = add_markers(blank, alphabet)
-print_grid(user_grid)
+print(user_grid)
+print_grid(field)
 x, y = get_user_cell(alphabet)
 if field[y][x] == 'X':
     print('you hit a bomb')
