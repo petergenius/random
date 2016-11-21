@@ -8,14 +8,11 @@ def is_real(field,y,x):
     else:
         return False
 def check_for_bombs(field,x, y):
-    print(y,'row',x,'char')
-    print(field,':',field[x][y])
     count = 0
     if is_real(field,y,x-1):
         if field[y][x-1] == 'X':
             count += 1
     if is_real(field,y,x+1):
-        print('is running')
         if field[y][x+1] == 'X':
             count += 1
     if is_real(field,y+1,x):
@@ -33,7 +30,7 @@ def check_for_bombs(field,x, y):
     if is_real(field,y+1,x-1):
         if field[y+1][x-1] == 'X':
             count += 1
-    if is_real(field,y-1,x-1):
+    if is_real(field,y-1,x+1):
         if field[y-1][x+1] == 'X':
             count += 1
     return count
@@ -44,12 +41,12 @@ def add_char(field,pair,char):
     field[y][x] = char
     return field
 
-def add_all_bombs(field,field_coords,num_of_bombs):
+def add_all_bombs(grid,field_coords,num_of_bombs):
     for count in range(num_of_bombs):
         coord = random.choice(field_coords)
         field_coords.remove(coord)
-        field = add_char(field,coord,'X')
-    return field
+        grid = add_char(grid,coord,'X')
+    return grid
 def make_field(length,height,num_of_bombs):
     if length * height < num_of_bombs:
         print('too many bombs!')
@@ -57,41 +54,50 @@ def make_field(length,height,num_of_bombs):
     blank = []
     bomb_pairs = []
     for row in range(height):
-        blank.append(['0']*length )
+        blank.append(['#']*length)
         for cell in range(length):
             bomb_pairs.append([cell,row])
-    bombed_field = add_all_bombs(blank,bomb_pairs,num_of_bombs)
-    return bombed_field
-def make_visible_form(field,length,height):
-    top = [' ']
-    alphabet = list(string.ascii_lowercase)
-    for count in range(length):
-        top.append(alphabet[count])
-    field.insert(0,top)
-    for row_num in range(height+1):
-        if row_num != 0: #row with letters
-            field[row_num].insert(0,row_num)
+    field = add_numbers(add_all_bombs(blank, bomb_pairs, num_of_bombs))
     return field
-def get_user_cell():
-    alphabet = list(string.ascii_lowercase)
+def add_numbers(grid):
+    for y in range(len(grid)):
+        for x in range(len(grid[0])):
+            if grid[y][x] != 'X':
+                grid[y][x] = check_for_bombs(grid,x,y)
+    return grid
+def add_markers(grid,alphabet):
+    top = [' ']
+    for count in range(len(grid[0])):
+        top.append(alphabet[count])
+    grid.insert(0,top)
+    for row_num in range(len(grid)):
+        if row_num != 0:
+            grid[row_num].insert(0,row_num)
+    return grid
+def get_user_cell(alphabet):
     cell = input(' > ')
-    y = alphabet.index(cell[0])+1
-    x = int(cell[1:])
-    return y, x
+    y = alphabet.index(cell[0]) #the letter
+    x = int(cell[1:]) #the number
+    return x, y
 def print_grid(grid):
     for row in grid:
         for char in row:
             print(char,end=' ')
         print('\n')
+alphabet = list(string.ascii_lowercase + string.ascii_uppercase)
 length = int(input('length of field > '))
 height = int(input('height of field > '))
 bombs = int(input('number of bombs > '))
-field = make_field(length,height,bombs)
-pretty_form = make_visible_form(field,length,height)
-print_grid(pretty_form)
-y, x = get_user_cell()
-if pretty_form[x][y] == 'X':
+field = make_field(length, height, bombs)
+blank = [len(field[0]) * ['#']] * len(field)
+print(blank)
+print(alphabet)
+user_grid = add_markers(blank, alphabet)
+print_grid(user_grid)
+x, y = get_user_cell(alphabet)
+if field[y][x] == 'X':
     print('you hit a bomb')
 else:
-    pretty_form = add_char(pretty_form,[y,x],str(check_for_bombs(pretty_form,x,y)))
-    print_grid(pretty_form)
+    pass
+    #pretty_form = add_char(field,[y,x],str(check_for_bombs(field,x,y)))
+    #print_grid(make_pretty(field))
