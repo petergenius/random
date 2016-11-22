@@ -91,9 +91,9 @@ length = int(input('length of field > '))
 height = int(input('height of field > '))
 bombs = int(input('number of bombs > '))
 field = make_field(length, height, bombs)
-blank = [len(field[0]) * ['#']] * len(field)
+blank = [['#'] * len(field[0]) for n in range(len(field))]
+#http://stackoverflow.com/questions/240178/python-list-of-lists-changes-reflected-across-sublists-unexpectedly
 
-#print(field)
 print(blank)
 user_grid = add_markers(blank, alphabet)
 print(user_grid)
