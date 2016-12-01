@@ -1,7 +1,0 @@
-#!/usr/bin/env python3
-n1 = 5
-n2 = 6
-answers = ""
-statement = "(x + {}) * (x + {})".format(n1,n2)
-answers += statement
-print(answers)

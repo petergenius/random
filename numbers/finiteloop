@@ -1,7 +1,0 @@
-#!/usr/bin/env python3
-import skilstak.colors as c
-import random
-answers = ["I","CAN","CODE","I","5"]
-for count in range(50):
-    pick = random.choice(answers)
-    print(c.rc() + pick)
