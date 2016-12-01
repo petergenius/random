@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-import random, string
+import random, string, skilstak.colors as c
 def is_real(grid,y,x):
     height = len(grid)-1
     length = len(grid[0])-1
@@ -7,6 +7,7 @@ def is_real(grid,y,x):
         return True
     else:
         return False
+
 def check_for_bombs(grid,x, y):
     count = 0
     if is_real(grid,y,x-1):
@@ -63,44 +64,63 @@ def add_numbers(grid):
     for y in range(len(grid)):
         for x in range(len(grid[0])):
             if grid[y][x] != 'X':
-                grid[y][x] = check_for_bombs(grid,x,y)
+                grid[y][x] = str(check_for_bombs(grid,x,y))
     return grid
-def add_markers(grid,alphabet):
+def add_info(grid):
+    my_grid = []
+    alphabet = list(string.ascii_lowercase + string.ascii_uppercase)
     top = [' ']
     for count in range(len(grid[0])):
         top.append(alphabet[count])
     
-    grid.insert(0,top)
+    my_grid.append(top)
     for row_num in range(len(grid)):
         if row_num != 0:
-            grid[row_num].insert(0,row_num)
+            row = grid[row_num][:]
+            full_row = [str(row_num)] + row
+            my_grid.append(full_row)
+    return my_grid
 
-    return grid
-def get_user_cell(alphabet):
-    cell = input(' > ')
-    y = alphabet.index(cell[0]) #the letter
-    x = int(cell[1:]) #the number
-    return x, y
-def print_grid(grid):
+def print_fancy(grid):
+    print(c.cl) 
     for row in grid:
         for char in row:
             print(char,end=' ')
         print('\n')
-alphabet = list(string.ascii_lowercase + string.ascii_uppercase)
+def get_user_cell():
+    alphabet = list(string.ascii_lowercase + string.ascii_uppercase)
+    cell = input(' > ')
+    y = alphabet.index(cell[0]) #the letter
+    x = int(cell[1:]) #the number
+    return x, y
+
+def has_bomb(grid):
+    for row in grid:
+        for character in grid:
+            if character == 'X':
+                return False
+
+    return True
 length = int(input('length of field > '))
 height = int(input('height of field > '))
+#I shouldn't have to add one to height, but I'm too lazy to fix it
 bombs = int(input('number of bombs > '))
-field = make_field(length, height, bombs)
+field = make_field(length, height+1, bombs)
 blank = [['#'] * len(field[0]) for n in range(len(field))]
 #http://stackoverflow.com/questions/240178/python-list-of-lists-changes-reflected-across-sublists-unexpectedly
+counter = length*height-bombs
+while counter > 0:
+    
+    print_fancy(add_info(blank))
+    x, y = get_user_cell()
+    if field[x][y] == 'X':
+        print('You hit a bomb')
+        blank[x][y] = 'X'
+    else:
+        if blank[x][y] == '#':
+            counter -= 1
+            blank[x][y] = field[x][y]
+        else:
+            print('You already got that square')
 
-print(blank)
-user_grid = add_markers(blank, alphabet)
-print(user_grid)
-x, y = get_user_cell(alphabet)
-if field[y][x] == 'X':
-    print('you hit  a bomb')
-else:
-    pass
-    #pretty_form = add_char(field,[y,x],str(check_for_bombs(field,x,y)))
-    #print_grid(make_pretty(field))
+print(has_bomb(blank))
