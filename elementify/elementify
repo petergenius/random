@@ -43,4 +43,4 @@ combos = findCombos(len(word))
 sets = changeToLetters(word,combos)
 for eachSet in sets:
 	if set(eachSet).issubset(set(elements)):
-		print(eachSet)
+
