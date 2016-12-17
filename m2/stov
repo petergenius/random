@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 '''standard to vertex'''
-a = -1
-b = 8
-c = 9
+a = 1
+b = -6
+c = 5
 aos = (-b)/(2*a)
 print('aos=',aos)
 print('f(x)=a(x-h)^2+k')
