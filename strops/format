@@ -1,0 +1,49 @@
+#!/usr/bin/env python3
+'''
+Formatting shortcuts and information
+https://pyformat.info/
+https://mkaz.tech/python-string-format.html
+https://www.reddit.com/r/Python/comments/174e1i/python_string_format_cookbook/c82ot0h/
+'''
+#switch arguments
+print('{1} {0}'.format('one', 'two')) #output:two one
+
+#`:` colon is used to specify the string being change
+#left padding - for this example there is only 6 spaces to the left, the `<` flag is optional
+print('{:10}'.format('test'))
+#change padding character
+print('{:_<10}'.format('test')) #you need an arrow since there is a padding character specifier
+#right pad
+print('{:>10}'.format('test'))
+#center pad (3 on each side)
+print('{:^10}'.format('test'))
+#truncate string
+print('{:.5}'.format('xylophone')) #output: xylop
+#format as a number
+print('{:d}'.format(42423324646))
+#format as a float
+print('{:f}'.format(3.141592653589793))
+#truncate floating point
+print('{:.2f}'.format(3.141592653589793))
+#specify length of decimal number with a `0` as the filler
+print('{:06.2f}'.format(3.141592653589793))
+#format with signs
+print('{:+f} / {:+f}'.format(3.12,-3.12))
+#percentage with 2 digits
+print('{:.2%}'.format(0.34))
+#number format with comma
+print('{:,}'.format(10000000000))
+#exponent notation with 2 digits
+print('{:.2e}'.format(10000000000000000))
+#reuse variables - need numbers for eacch one 
+print('{0} {0}!{1} {2} {3} {0}!{4} {3}?'.format('hi','my','name','is','it'))
+#convert to he[x], [o]ctal or [b]inary
+print('{:x}'.format(21))
+#use 0 as a filler
+print('{:05}'.format(21))
+#formatting as a function
+str_name = '{first} {last}'.format
+print(str_name(first='bob',last='bill'))
+#name arguments
+print(madlib = " I {verb} the {object} off the {place} ".format(verb="took", object="cheese", place="table"))
+
