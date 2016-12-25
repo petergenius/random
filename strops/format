@@ -46,4 +46,4 @@ str_name = '{first} {last}'.format
 print(str_name(first='bob',last='bill'))
 #name arguments
 print(madlib = " I {verb} the {object} off the {place} ".format(verb="took", object="cheese", place="table"))
-
+#You can also do combinations of these, read more at links posted at top
