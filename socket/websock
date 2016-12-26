@@ -1,0 +1,31 @@
+#!/usr/bin/env python3
+import socket
+'''
+basic socket testing
+http://www.binarytides.com/python-socket-programming-tutorial/
+https://www.tutorialspoint.com/python/python_networking.htm
+'''
+#AF_UNIX or AF_INET, STREAM socket (TCP)
+#Adrress Family: AF_INET(IPv4)
+#Type: SOCK_STREAM(Connection orientied TCP)
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+#create
+host = 'www.google.com'
+port = 80 #http
+try:
+    #find
+    google_ip = socket.gethostbyname(host)
+except socket.gaierror:
+    print('Hostname not found')
+    exit()
+#connect
+connect_data = (google_ip, port)
+s.connect(connect_data)
+#send - http://stackoverflow.com/questions/6686261/what-at-the-bare-minimum-is-required-for-an-http-request
+message = bytes('GET / HTTP/1.1\r\n\r\n','UTF-8')
+#http://stackoverflow.com/questions/5471158/typeerror-str-does-not-support-the-buffer-interface
+s.sendall(message)
+reply = s.recv(4096)
+#receive
+print(reply)
+#summary: create, find, connect, send, receive
