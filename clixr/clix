@@ -1,0 +1,205 @@
+#!/usr/bin/env python3
+import json
+import threading
+import skilstak.colors as c
+STANDARD_TICK = 2.8
+DOUBLE_TICK = 1.4
+MAX_ELIXER = 10
+START_ELIXIR = 5
+STANDARD_TIME = 120
+DOUBLE_TIME = 120 #overtime and double elixir
+DOUBLE_TIME_3_MIN_OVERTIME = 240
+ELIXIR_COLLECTOR_TICK = 8.5
+NUMBERS = [c.g + '''
+ _______ 
+ (  __   )
+ | (  )  |
+ | | /   |
+ | (/ /) |
+ |   / | |
+ |  (__) |
+ (_______)
+          
+''' + c.x,c.g + '''
+  __   
+ /  \  
+ \/) ) 
+   | | 
+   | | 
+   | | 
+ __) (_
+ \____/
+       
+''' + c.x,c.g + r'''
+ _______ 
+/ ___   )
+\/   )  |
+    /   )
+  _/   / 
+ /   _/  
+(   (__/\
+\_______/
+         
+''' + c.x,c.g + r'''
+ ______  
+/ ___  \ 
+\/   \  \
+   ___) /
+  (___ ( 
+      ) \
+/\___/  /
+\______/
+''' + c.x,c.y + '''
+    ___   
+   /   )  
+  / /) |  
+ / (_) (_ 
+(____   _)
+     ) (  
+     | |  
+     (_)  
+          
+''' + c.x, c.y + r'''
+ _______ 
+(  ____ \
+| (    \/
+| (____  
+(_____ \ 
+      ) )
+/\____) )
+\______/ 
+         
+''' + c.x,c.y + r'''
+  ______ 
+ / ____ \
+( (    \/
+| (____  
+|  ___ \ 
+| (   ) )
+( (___) )
+ \_____/ 
+         
+''' + c.x,c.o + '''
+ ______  
+/ ___  \ 
+\/   )  )
+    /  / 
+   /  /  
+  /  /   
+ /  /    
+ \_/     
+         
+''' + c.x,c.o + '''
+  _____  
+ / ___ \ 
+( (___) )
+ \     / 
+ / ___ \ 
+( (   ) )
+( (___) )
+ \_____/ 
+         
+''' + c.x,c.r + '''
+  _____  
+ / ___ \ 
+( (   ) )
+( (___) |
+ \____  |
+      ) |
+/\____) )
+\______/ 
+         
+''' + c.x,c.r + '''
+  __    _______ 
+ /  \  (  __   )
+ \/) ) | (  )  |
+   | | | | /   |
+   | | | (/ /) |
+   | | |   / | |
+ __) (_|  (__) |
+ \____/(_______)
+                
+''' + c.x]         
+def load_card_data(filename):
+    with open(filename) as card_data:
+        return json.load(card_data)
+
+def print_ascii(num):
+    print(NUMBERS[num])
+
+def print_cards(cards):
+    print('        1       |        2       |        3       |        4       |        5       |        6       |        7       |        8       |')
+    print('-'*16 + '|' + '-'*16 + '|' + '-'*16 + '|' + '-'*16 + '|' + '-'*16 + '|' + '-'*16 + '|' + '-'*16 + '|' + '-'*16 + '|')
+    print('{:16}|{:16}|{:16}|{:16}|{:16}|{:16}|{:16}|{:16}|'.format(cards[0][1], cards[1][1], cards[2][1], cards[3][1],cards[4][1], cards[5][1], cards[6][1], cards[7][1]))
+cards = ['None'] * 8
+data = load_card_data('cards.json')
+elixir = START_ELIXIR
+def tick(time):
+    global elixir, cards
+    if elixir < 10:
+        elixir += 1
+    print(c.cl)
+    print_card_data(data)
+    print_ascii(elixir)
+    print_cards(cards)
+    if time > STANDARD_TIME:
+        time += DOUBLE_TICK
+        timer = threading.Timer(DOUBLE_TICK, tick, [time])
+    else:
+        time += STANDARD_TICK
+        timer = threading.Timer(STANDARD_TICK, tick, [time])
+    timer.start()
+def get_card(acronym):
+    for card in data:
+        if card[0] == acronym:
+            return card
+    return False
+
+def prep_list(card, played, clist):
+        if played:
+            clist.remove(card)
+            clist.append(card)
+        else:
+            clist.remove('None')
+            clist.append(card)
+        return clist
+def print_card_data(data):
+    for count in range(22):
+        print('{:2}:{:16}|{:2}:{:16}|{:2}:{:16}'.format(data[count][0], data[count][1], data[count+22][0], data[count+22][1], data[count+44][0], data[count+44][1]))
+def play(acronym):
+    global elixir, cards
+    real_card = get_card(acronym)
+    if real_card:
+        if elixir - real_card[2] > 0:
+            #enough elixir
+            if real_card in cards[0:3]:
+                #already played
+                if real_card == cards[7]:
+                    real_card = ['mi','mirror',None]
+                    elixir -= cards[7][2] + 1
+                    cards = prep_list(real_card, True, cards)
+                #mirror
+                else:
+                
+                    if acronym == 'ec': #elixir collector
+                        print('Elixir collector does not have support yet')
+
+                    cards = prep_list(real_card, True, cards)
+                    
+
+                    elixir -= real_card[2]
+            else:
+                #new card shown
+                cards = prep_list(real_card, False, cards)
+        else:
+            print("Your opponent doesn't have enough elixir")
+    else:
+        print('"' + acronym + '" is not a real acronym')
+
+
+print('If a mirrored card is played, write the card twice, as there is no official "mirror" card')
+tick(0)
+
+for count in range(STANDARD_TIME + DOUBLE_TIME):
+    select = input('')
+    play(select)
