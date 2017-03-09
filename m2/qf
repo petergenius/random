@@ -44,7 +44,11 @@ def solve():
         print(a2,"         |||",a2)
         pad()
         print(sc.green + "solutions:{",answer1,",",answer2,"}" + sc.yellow)
-        print(top1,"/",a2,"|||",top2,"/",a2, sc.x)
-        print("square root is ", sqd)
+        if ((a * answer1 * answer1) + (answer1 * b) + c == 0):
+            print('{} works'.format(answer1))
+        if ((a * answer2 * answer2) + (answer2 * b) + c == 0):
+            print('{} works'.format(answer2))
+
+        print("square root value =", sqd)
 if __name__ == '__main__':
     solve()

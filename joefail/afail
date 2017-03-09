@@ -1,0 +1,14 @@
+#!/usr/bin/env python3
+def remove_item(file_name):
+    remove_item = input("Is there anything that you would like to delete? Type `clear` to clear your list. > ")
+    if remove_item == "clear":
+        clear_file(file_name)
+    else:
+        with open(file_name,"r") as f:
+            read = f.read().split("\n")
+        with open(file_name,"w") as f:
+            for line in read:
+                if remove_item not in line:
+                    f.write(line + "\n")
+
+remove_item("x.txt")
