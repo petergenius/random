@@ -1,0 +1,60 @@
+#!/usr/bin/env python3
+import os, sys
+args = sys.argv
+USAGE = '''
+quickrun -f file
+quickrun -r repo
+quickrun -gr githubrepo
+quickrun -gf githubfile
+'''
+location = '/home/retep/extra/quickrun/storage'
+if len(args) != 3:
+    print(USAGE)
+    exit()
+
+option = args[1]
+name = args[2]
+if option.startswith('-f'):
+    if '/' in name:
+        path = name
+    else:
+        path = os.getcwd() + '/{}'.format(name)
+    num=0
+    repo_name = name.split('.go')[0]
+    while True:
+            if os.path.exists('{}/{}'.format(location,name)):
+                if num != 0:
+                    name = name[:-1] + str(num)
+                else:
+                    name = name + str(num)
+                    
+                num += 1
+            else:
+                break
+    os.system('mkdir {}/{}'.format(location,repo_name)) #make location
+    os.system('cd {}/{};mkdir src;mkdir bin;mkdir pkg;echo "export GOPATH={}/{}\nexport PATH={}/{}/bin:\$PATH" >> setup'.format(location,repo_name,location,repo_name,location,repo_name)) #make everything
+    os.system('cp {} {}/{}/src'.format(path,location,repo_name)) #move file
+    print('Copy this code:\ncd {}/{};source setup;cd src;ls\nYour Project will be ready after you run that!'.format(location,repo_name))
+elif option.startswith('-r'):
+    if '/' in name:
+        path = name
+    else:
+        path = os.getcwd() + '/{}'.format(name)
+    num = 0
+    while True:
+            
+            if os.path.exists('{}/{}'.format(location,name)):
+                if num != 0:
+                    name = name[:-1] + str(num)
+                else:
+                    name = name + str(num)
+                    
+                num += 1
+            else:
+                break
+    os.system('mkdir {}/{}'.format(location,name)) #make location
+    os.system('cd {}/{};mkdir src;mkdir bin;mkdir pkg;echo "export GOPATH={}/{}\nexport PATH={}/{}/bin:\$PATH" >> setup'.format(location,name,location,name,location,name)) #make everything
+    os.system('cp -r {} {}/{}/src'.format(path,location,name))
+    print('Copy this code:\ncd {}/{};source setup;cd src;ls\nYour Project will be ready after you run that!'.format(location,name))
+else:
+    print(USAGE)
