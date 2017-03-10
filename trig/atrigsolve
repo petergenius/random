@@ -1,0 +1,45 @@
+#!/usr/bin/env python3
+import skilstak.colors as c
+import time as t
+if __name__ == '__main__':
+    try:
+        while True:
+            print(c.multi("Alexander is a fail and he knows it"),end=" ")
+    except KeyboardInterrupt:
+
+        try:
+            while True:
+                print(c.red +"Alexander is a fail and he knows it",end=" ")
+        except KeyboardInterrupt:
+
+            try:
+               while True:
+                    print(c.orange +"Alexander is a fail and he knows it",end=" ")
+            except KeyboardInterrupt:
+                try:
+                    while True:
+                        print(c.yellow +"Alexander is a fail and he knows it",end=" ")
+                except KeyboardInterrupt:
+                    try:
+                        while True:
+                            print(c.green +"Alexander is a fail and he knows it",end=" ")
+                    except KeyboardInterrupt:
+                        try:
+                            while True:
+                                print(c.blue +"Alexander is a fail and he knows it",end=" ")
+                        except KeyboardInterrupt:
+
+                            try:
+                                while True:
+                                    print(c.magenta +"Alexander is a fail and he knows it",end=" ")
+                            except KeyboardInterrupt:
+                                try:
+                                    while True:
+                                        print(c.base03 +"Alexander is a fail and he knows it",end=" ")
+                                except KeyboardInterrupt:
+                                    try:
+                                        while True:
+                                            print(c.base02 +"Alexander is a fail and he knows it",end=" ")
+                                    except KeyboardInterrupt:
+                                        print(" GOOD JOB")
+                                        exit()

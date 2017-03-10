@@ -1,0 +1,136 @@
+#!/usr/bin/env python3
+if __name__ == '__main__':
+    try:
+        import math
+        import skilstak.colors
+        print(skilstak.colors.cl)
+        x = int(input("degrees > "))
+        h = int(input("hypotenuse length > "))   
+        """gets x & y coordinates"""
+        xcoord = int(input("X coord > "))
+        ycoord = int(input("Y coord > "))
+        y = float(0.01745329252)
+        z = float(x * y)
+        print("you have",z,"radians")
+        if 1 == 2:
+            ai = int(2 * 1)
+            bi = int(4 * 3 * 2 * 1)
+            ci = int(6 * 5 * 4 * 3 * 2 * 1)
+            di = int(8 * 7 * 6 * 5 * 4 * 3 * 2 * 1)
+            ei = int(10 * 9 * 8 * 7 * 6 * 5 * 4 * 3 * 2 * 1)
+            fi = int(12 * 11 * 10 * 9 * 8 * 7 * 6 * 5 * 4 * 3 * 2 * 1)
+            z2 = float(z * z)
+            z4 = float(z ** 4)
+            z6 = float(z ** 6)
+            z8 = float(z ** 8)
+            z10 = float(z ** 10)
+            z12 = float(z ** 12)
+            a = float(z2 / ai)
+            b = float(z4 / bi)
+            c = float(z6 / ci)
+            d = float(z8 / di)
+            e = float(z10 / ei)
+            f = float(z12 / fi)
+            answer = float(1 - a + b - c + d - e + f)
+            print("About ~",answer)
+        else:
+            """This mimics converting sin to a tangible number like a calculator, to 6 accurate decimal places"""
+            zi = int(3 * 2 * 1)
+            yi = int(5 * 4 * 3 * 2 * 1)
+            xi= int(7 * 6 * 5 * 4 * 3 * 2 * 1)
+            wi = int(9 * 8 * 7 * 6 * 5 * 4 * 3 * 2 * 1)
+            vi = int(11 * 10 * 9 * 8 * 7 * 6 * 5 * 4 * 3 * 2 * 1)
+            ui = int(13 * 12 * 11 * 10 * 9 * 8 * 7 * 6 * 5 * 4 * 3 * 2 * 1)
+            z3 = float(z ** 3) 
+            z5 = float(z ** 5) 
+            z7 = float(z ** 7) 
+            z9 = float(z ** 9) 
+            z11 = float(z ** 11) 
+            z13 = float(z ** 13)
+            a = float(z3 / zi)
+            b = float(z5 / yi)
+            c = float(z7 / xi)
+            d = float(z9 / wi)
+            e = float(z11 / vi)
+            f = float(z13 / ui)
+            answer = float(z - a + b - c + d - e + f)
+            print("Sin is  ~",answer)
+            """answer is sin of the angle"""
+            """cross multiplies/ cancels hypotenuse with sin, to find side length of 'opposite', the side across from the hypotenuse"""
+            r = float(h * answer)
+            print("(a)up & down is",r)
+            """solves for 'b' using pythagoream theorem"""
+            r2 = float(r * r)
+            h2 = int(h * h)
+            b2 = float(h2 - r2)
+            b = math.sqrt(b2)
+            print("b is",b)
+            """finds the new X and Y coords"""
+            newx = float(b + xcoord)
+            newy = float(r + ycoord)
+            print(newx,",",newy)
+            """finds slope"""
+            slopey = float(newy - ycoord)
+            slopex = float(newx - xcoord)
+            slope = float(slopey / slopex)
+            print("slope is",slope)
+
+            """math.ceil(number) rounds up"""
+            """copied from http://www.roguebasin.com/index.php?title=Bresenham%27s_Line_Algorithm""" 
+            """Bresenham's Line Algorithm
+            Produces a list of tuples from start and end
+        
+            >>> points1 = get_line((0, 0), (3, 4))
+            >>> points2 = get_line((3, 4), (0, 0))
+            >>> assert(set(points1) == set(points2))
+            >>> print points1
+            0, 0), (1, 1), (1, 2), (2, 3), (3, 4
+            >>> print points2
+            3, 4), (2, 3), (1, 2), (1, 1), (0, 0
+            """
+            """x1, y1 = start
+            x2, y2 = end
+            dx = x2 - x1
+            dy = y2 - y1"""
+            dx = abs(newx - xcoord)
+            dy = abs(newy - ycoord)
+            # Determine how steep the line is
+            is_steep = abs(dy) > abs(dx)
+        
+            # Rotate line
+            if is_steep:
+                xcoord, ycoord = ycoord, xcoord
+                newx, newy = newy, newx
+        
+            # Swap start and end points if necessary and store swap state
+            swapped = int(0)
+            if xcoord > newx:
+                xcoord, newx = newx, xcoord
+                ycoord, newy = newy, ycoord
+            swapped = int(1)
+        
+            # Recalculate differentials
+            dx = abs(newx - xcoord)
+            dy = abs(newy - ycoord)
+        
+            # Calculate error
+            error = abs(dx / 2.0)
+            ystep = 1 if ycoord < newy else -1
+            # Iterate over bounding box generating points between start and end
+            y = float(ycoord)
+            rnewx = int(round(newx) - .5) + (newx > 0)
+            points = []
+            for x in range(xcoord, rnewx + 1):
+                coord = (y, x) if is_steep else (x, y)
+                points.append(coord)
+                error -= abs(dy)
+                if error < 0:
+                    y += ystep
+                    error += dx
+        
+            # Reverse the list if the coordinates were swapped
+            if swapped == 1:
+                points.reverse()
+                print(points)
+    except KeyboardInterrupt:
+            exit()
