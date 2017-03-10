@@ -1,0 +1,19 @@
+#!/usr/bin/env python3
+
+import leaderlib as ll
+if __name__ == '__main__':
+    try:
+        while True:
+            scores, names = ll.read_scores('leaderboard.txt',' | ')
+            sorted_scores = ll.sort_scores(scores, names)
+            ll.print_scores(sorted_scores, ' = ', 5)
+
+            new_name = input('Name > ')
+            new_score = int(input('Score > '))
+            if ll.has_better_score(new_score, sorted_scores, 5):
+                ll.write_score(new_score, new_name, sorted_scores, 'leaderboard.txt', ' | ')
+            else:
+                print('not on the leaderboard...')
+            print('\n\n\n')
+    except KeyboardInterrupt:
+        exit()
