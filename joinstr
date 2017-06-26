@@ -1,0 +1,34 @@
+#!/usr/bin/env python3
+def join(list_of_ascii, sep=''):
+    joined = ''
+    nested_list_of_ascii = [ascii_item.split('\n') for ascii_item in list_of_ascii]
+    longest_length = len(max(nested_list_of_ascii, key=len)) #sort by the length of each term
+    print(longest_length)
+    for index in range(longest_length):
+        for ascii_item in nested_list_of_ascii:
+            if not index > len(ascii_item)-1:
+                joined += ascii_item[index] + sep
+                print(joined)
+        joined += '\n'
+def join2(these,sep=""):
+    joined = ""
+    tjoin = [str(i).split("\n") for i in these]
+    longest = 0
+    for t in tjoin:
+        l = len(t)
+        if l > longest: longest = l
+    for i in range(longest):
+        for j in range(len(tjoin)):
+            joined += tjoin[j][i] + sep
+        joined += "\n"
+    return joined
+test1 = '''hi my name
+I love sponges and 
+are amazing
+!!!'''
+
+test2 = '''is bob
+think they
+'''
+print(join([test1, test2]))
+print(join2([test1,test2]))

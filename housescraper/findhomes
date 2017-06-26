@@ -1,0 +1,78 @@
+#!/usr/bin/env python3
+from urllib.request import urlopen
+from bs4 import BeautifulSoup as bs
+import time, csv, datetime
+MAXPRICE = 90000
+rawhomes = "https://www.hudhomestore.com/Listing/PropertySearchResult.aspx?pageId=1&zipCode=&city=&county=&sState=NC&fromPrice=0&toPrice={}&fCaseNumber=&bed=0&bath=0&street=&buyerType=0&specialProgram=&Status=0&indoorAmenities=&outdoorAmenities=&housingType=&stories=&parking=&propertyAge=&OrderbyName=SCASENUMBER&OrderbyValue=ASC&sPageSize=100&sLanguage=ENGLISH".format(MAXPRICE)
+print('starting up...')
+page = urlopen(rawhomes)
+soup = bs(page,"lxml")
+homedata = {}
+def zformat(string):
+    name = string[68:].replace('<br/>',' ')[:-7].replace(',','')
+    cut = string[68:].replace(' ','-').split('<br/>')
+    zillow = (cut[0] + "-," + cut[1])
+
+    return name, zillow
+print('loading homes')
+numhouses = int(soup.find("span",{"id":"lblTotalNoRecords"}).get_text().split(' ')[0]) + 3
+for i in range(3, numhouses):
+    name, stuff = zformat(str(soup.find("span",{"id":"dgPropertyList_ctl{:02}_lblAddress".format(i)})))
+    stuff2 = soup.find("label",{"id":"dgPropertyList_ctl{:02}_Label8".format(i)}).get_text()[1:].replace(',','')
+    stuff3 = soup.find("span",{"id":"dgPropertyList_ctl{:02}_lblDTBidOpen".format(i)}).get_text()
+    stuff4 = soup.find("label",{"id":"dgPropertyList_ctl{:02}_Label10".format(i)}).get_text()
+    stuff5 = soup.find("label",{"id":"dgPropertyList_ctl{:02}_Label30".format(i)}).get_text()
+    homedata[stuff] = [name,stuff2,stuff3,stuff4,stuff5]
+print('{} houses received'.format(numhouses - 3))
+for i, stuff in enumerate(homedata.keys()):
+    delay = 0
+    while True:
+        try:
+            page = urlopen("https://www.zillow.com/homes/for_sale/{}_rb/?fromHomePage=true&shouldFireSellPageImplicitClaimGA=false&fromHomePageTab=buy".format(stuff))
+            print("HOUSE #",i+1," ON ",delay," delay.")
+            time.sleep(delay)
+            soup = bs(page,'lxml')
+            x = str(soup.find("input",{"id":"HDPZestimateProxiedAssetsConfig"})).replace('\\','').split(',')
+            if "zestimateLowPercent" in x[16]:
+                homedata[stuff].append('None') #zestimate
+                homedata[stuff].append('None') #undervalued by
+            else:
+                zestimate = x[16][31:]
+                homedata[stuff].append(zestimate)
+                homedata[stuff].append(int(zestimate) - int(homedata[stuff][1]) )
+
+            if "restimateLowPercent" in x[19]:
+                homedata[stuff].append('None') #rent
+                homedata[stuff].append('None') #status
+                homedata[stuff].append('None') #max price
+                homedata[stuff].append('None') #margin
+            else:
+                rent = x[19][12:]
+                homedata[stuff].append(rent)
+                maxprice = int(rent) * 60
+                theprice = int(homedata[stuff][1])
+                if maxprice >= theprice:
+                    homedata[stuff].append('Good')
+                else:
+                    homedata[stuff].append('Bad')
+                homedata[stuff].append(str(maxprice))
+                homedata[stuff].append(str(maxprice - theprice))
+            break
+        except IndexError:
+            delay += 5
+            if delay >= 30:
+                homedata[stuff].append('FAIL') #zestimate
+                homedata[stuff].append('FAIL') #undervalued by
+                homedata[stuff].append('FAIL') #rent
+                homedata[stuff].append('FAIL') #status
+                homedata[stuff].append('FAIL') #max price
+                homedata[stuff].append('FAIL') #margin
+                print('FAIL ON HOUSE # {}'.format(i + 1))
+                break
+d = datetime.date.today() 
+date = str(d.month) + '.' + str(d.day)
+with open('data/homes{}.csv'.format(date), 'w+') as myfile:
+        wr = csv.writer(myfile)
+        wr.writerow(['address','price','for sale','bed','bath','zestimate','undervalued by','rent','status','max price','margin'])
+        for data in homedata.keys():
+            wr.writerow(homedata[data])
