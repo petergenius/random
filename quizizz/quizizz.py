@@ -8,11 +8,11 @@ from selenium.webdriver.common.by import By
 def play(gamecode, name):
     driver = webdriver.Chrome()
     driver.get("https://quizizz.com/join/")
-    time.sleep(3)
+    time.sleep(2)
     room_input = driver.find_element_by_css_selector('.check-room-input')
     room_input.send_keys(gamecode)
     driver.find_element_by_css_selector('.check-room-btn').click()
-    time.sleep(3)
+    time.sleep(2)
     player_input = driver.find_element_by_css_selector('.check-player-input')
     player_input.send_keys(name)
     button = driver.find_element_by_css_selector('.check-player-btn')
@@ -23,8 +23,7 @@ def play(gamecode, name):
     for question in quizInfo["data"]["quiz"]["info"]["questions"]:
         answers[question["structure"]["query"]["text"]] = question["structure"]["options"][int(question["structure"]["answer"])]["text"]
     for _ in range(len(answers)):
-        wait = WebDriverWait(driver, 10)
-        wait.until(expected_conditions.visibility_of_element_located((By.CLASS_NAME, 'question-text-color')))
+        WebDriverWait(driver, 10).until(expected_conditions.visibility_of_element_located((By.CLASS_NAME, 'question-text-color')))
         try:
             questionAnswer = answers[driver.find_element_by_css_selector('.question-text-color').get_attribute('innerHTML')]
             choices = driver.find_element_by_css_selector('.options-container').find_elements_by_css_selector('.option')
@@ -33,7 +32,7 @@ def play(gamecode, name):
                         answer.click()
                         break
         except KeyError:
-            input("I couldn't find the answer, please click it yourself.(enter when done)")
+            input("I couldn't find the answer, please click it yourself. [ENTER] ")
 
     driver.quit()    
 gamecode = input("gamecode > ")
