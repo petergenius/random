@@ -38,24 +38,17 @@ def play(gamecode, name):
     driver = webdriver.Chrome()
     driver.get("https://quizizz.com/join/")
     time.sleep(2)
-    room_input = driver.find_element_by_css_selector('.check-room-input')
-    room_input.send_keys(gamecode)
+    driver.find_element_by_css_selector('.check-room-input').send_keys(gamecode)
     driver.find_element_by_css_selector('.check-room-btn').click()
     time.sleep(2)
-    player_input = driver.find_element_by_css_selector('.check-player-input')
-    player_input.send_keys(name)
-    settings = driver.find_element_by_css_selector('.left-section').find_element_by_css_selector('.menu-icon')
-    settings.click()
+    driver.find_element_by_css_selector('.check-player-input').send_keys(name)
+    driver.find_element_by_css_selector('.left-section').find_element_by_css_selector('.menu-icon').click()
     time.sleep(0.4)
-    toggle = driver.find_element_by_css_selector('.game-section').find_element_by_css_selector('.toggle-button')
-    toggle.click()
-    back = driver.find_element_by_css_selector('.back-btn')
-    back.click()
+    driver.find_element_by_css_selector('.game-section').find_element_by_css_selector('.toggle-button').click()
+    driver.find_element_by_css_selector('.back-btn').click()
     time.sleep(0.4)
-    button = driver.find_element_by_css_selector('.check-player-btn')
-    button.click()
-    quiz = input("QuizID > ")
-    answers = find_answers(quiz)
+    driver.find_element_by_css_selector('.check-player-btn').click()
+    answers = find_answers(input("QuizID > "))
     while True:
         try:
             WebDriverWait(driver, 15).until(expected_conditions.visibility_of_element_located((By.CLASS_NAME, 'question-text-color')))
@@ -65,11 +58,14 @@ def play(gamecode, name):
         try:
             questionAnswer = answers[driver.find_element_by_css_selector('.question-text-color').get_attribute('innerHTML')]
             choices = driver.find_element_by_css_selector('.options-container').find_elements_by_css_selector('.option')
+            firstAnswer = True
             for answer in choices:
                 try:
                     if isinstance(questionAnswer, list):
+                        if firstAnswer:
+                            time.sleep(0.2)
+                            firstAnswer = False
                         if answer.find_element_by_css_selector(".resizeable").get_attribute('innerHTML') in questionAnswer:
-                            print("clicking multiple choice")
                             answer.click()
                     elif answer.find_element_by_css_selector(".resizeable").get_attribute('innerHTML') == questionAnswer:
                         answer.click()
@@ -85,12 +81,20 @@ def play(gamecode, name):
                         answer.click()
                         break
             if isinstance(questionAnswer, list):
-                button = driver.find_element_by_css_selector(".multiselect-submit-btn")
-                button.click()
+                driver.find_element_by_css_selector(".multiselect-submit-btn").click()
         except KeyError:
             input("I couldn't get the answer. Please click it then hit [enter]")
     driver.quit()    
 
-gamecode = input("gamecode > ")
-name = input("name > ")
-play(gamecode, name)
+
+print('''
+ ██████╗ ██╗   ██╗██╗███████╗██╗███████╗███████╗
+██╔═══██╗██║   ██║██║╚══███╔╝██║╚══███╔╝╚══███╔╝
+██║   ██║██║   ██║██║  ███╔╝ ██║  ███╔╝   ███╔╝ 
+██║▄▄ ██║██║   ██║██║ ███╔╝  ██║ ███╔╝   ███╔╝  
+╚██████╔╝╚██████╔╝██║███████╗██║███████╗███████╗
+ ╚══▀▀═╝  ╚═════╝ ╚═╝╚══════╝╚═╝╚══════╝╚══════╝
+                                                
+                Peter Stenger
+                Version 1.0''')
+play(input("Gamecode > "), input("Name > "))
